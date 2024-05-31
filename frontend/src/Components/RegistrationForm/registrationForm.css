@@ -1,0 +1,62 @@
+:root {
+  --primary--color: #070707;
+  --secondary--color: #6F6F6F;
+  --light--color: #F5F5F5;
+  --bouton-hover--color: #F21000;
+  --bouton--color: #54646F;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Deux colonnes avec largeur égale */
+  gap: 100px; /* Espacement entre les colonnes et les lignes */
+  max-width: 700px; /* Limite de la largeur */
+  margin: 0 auto; /* Centrer horizontalement */
+  padding: 20px; /* Espacement entre le formulaire et les bordures */
+  overflow-y: auto; /* Défilement vertical automatique lorsque le contenu dépasse la hauteur de l'écran */
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid #ccc; /* Bordure du bas */
+  padding: 8px; /* Réduire le padding */
+  width: 100%; /* Pour occuper toute la largeur disponible */
+  box-sizing: border-box; /* Inclure le padding dans la largeur totale */
+  font-size: 10px; /* Réduire la taille de la police */
+  transition: all 0.3s ease; /* Transition sur toutes les propriétés */
+}
+
+input:hover {
+  transform: scale(1.1); 
+}
+
+label {
+  display: block; /* Pour que les labels soient sur une ligne différente */
+  margin-bottom: 2px; /* Espacement entre les labels et les champs */
+}
+
+/* Appliquer la mise en page en colonne pour les champs Nom, Email et Mot de passe */
+.column1 {
+  grid-column: 1; /* Première colonne */
+}
+
+/* Appliquer la mise en page en colonne pour les champs Adresse et Téléphone */
+.column2 {
+  grid-column: 2; /* Deuxième colonne */
+}
+
+button {
+  background-color: var(--bouton--color); 
+  color: var(--light--color); 
+  padding: 10px 20px; 
+  cursor: pointer;  
+}
+
+button:hover {
+  background-color: var(--bouton-hover--color); 
+}

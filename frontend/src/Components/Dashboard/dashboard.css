@@ -1,0 +1,14 @@
+.dashboard{
+display: flex;
+gap: 20px;
+}
+.dashboard_content{
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  padding: 2rem;
+  gap:1.3rem;
+  background-color: #F5F5F5;
+  border-radius:20px;
+  margin: 8px;
+}

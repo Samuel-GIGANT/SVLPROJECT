@@ -1,0 +1,21 @@
+/* product.css */
+
+.product-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.product-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.product-item h2 {
+  margin-bottom: 5px;
+}
+
+.product-item p {
+  margin: 0;
+}

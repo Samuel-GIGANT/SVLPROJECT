@@ -1,0 +1,57 @@
+.container {
+  max-width: 1900px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.home {
+  height: 100%;
+}
+
+.home h1 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 5rem;
+  margin: 60px 0; /* Réduit la marge verticale */
+}
+
+.home_gallery {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow-x: auto; /* Ajoute un défilement horizontal si nécessaire */
+}
+
+.home_img {
+  position: relative;
+  width: 30%;
+  max-width: 300px; /* Limite la largeur des images */
+}
+
+.home_img img {
+  width: 100%; /* Utilise la largeur complète du conteneur */
+}
+
+.home_img_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px 30px;
+  border-radius: 5px;
+  color: #000;
+  text-decoration: none;
+}
+
+.home_img_text:after {
+  content: '>';
+  margin-left: 10px; /* Ajuste la marge */
+}
+
+.home_infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0; /* Réduit la marge verticale */
+}

@@ -1,0 +1,59 @@
+.order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  margin: 20px 10px;
+  padding: 20px;
+}
+
+.order_form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.order_form input {
+  min-width: 300px;
+  padding: 20px;
+}
+
+.order_infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.order_btn_Groups{
+ display: flex;
+ justify-content: space-between;
+}
+/***** BTNS CSS ******/
+.order_btns {
+ text-align:end ;
+}
+
+#btn_add {
+  background-color: green;
+}
+
+#btn_add:hover {
+  background-color: #2ecc71;
+}
+
+#btn_update {
+  background-color: mediumblue;
+}
+
+#btn_update:hover {
+  background-color: #4682B4;
+}
+
+#btn_delete {
+  background-color: red;
+}
+
+#btn_delete:hover {
+  background-color: #FF69B4;
+}

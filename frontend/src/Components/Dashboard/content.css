@@ -1,0 +1,33 @@
+.content{
+  width: 75%;
+}
+.content_header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/***** BTNS CSS ******/
+.header_btns{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+#btn_add{
+  background-color: green;
+}
+#btn_add:hover{
+  background-color: #2ecc71;
+}
+#btn_update{
+  background-color: mediumblue;
+}
+#btn_update:hover{
+ background-color: #4682B4;
+}
+#btn_delete{
+  background-color: red;
+}
+#btn_delete:hover{
+  background-color: #FF69B4;
+}
+/***** profile CSS ******/

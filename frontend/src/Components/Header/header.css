@@ -1,0 +1,60 @@
+/* header.css */
+header {
+  width: calc(100% - 40px);
+  margin: 0 auto; /*pour centrer le conteneur automatiquement*/
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.header_Logo a{
+  font-weight: 700;
+  color: var(--primary--color);
+}
+.header_logo, span{
+  font-weight: 700;
+  color: red;
+}
+.header_login {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 2.5rem;
+}
+.header_login a {
+  display: flex;
+  align-items: center;
+  color: inherit;
+}
+.header_login a:hover {
+  color: var(--bouton-hover--color);
+}
+
+.header_Nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: var(--light--color);
+  padding: 10px;
+}
+.header_Nav ul {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  gap:50px;
+}
+
+.header_Nav a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary--color);
+}
+
+.header_Nav li a:hover {
+  color: var(--bouton-hover--color);
+  transition: ease-in-out 0.2s;
+}
