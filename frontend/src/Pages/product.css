@@ -1,21 +1,87 @@
-/* product.css */
-
-.product-container {
-  max-width: 600px;
-  margin: 0 auto;
+.prod {
+  width: 75%;
 }
 
-.product-item {
+.product_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn_delete {
+  background-color: red;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn_delete:hover {
+  background-color: #FF69B4;
+}
+
+.btn_update {
+  background-color: mediumblue;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn_update:hover {
+  background-color: #4682B4;
+}
+
+.btn_add {
+  background-color: green;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn_add:hover {
+  background-color: #2ecc71;
+}
+
+/* Additional CSS for existing products */
+.existing_products {
+  list-style: none;
+  padding: 0;
+}
+
+.existing_products li {
+  margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
   padding: 10px;
+  text-align: center;
 }
 
-.product-item h2 {
+/* CSS for the form */
+.form_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form_container > div {
+  margin-right: 10px;
+}
+
+.form_container > div:last-child {
+  margin-right: 0;
+}
+
+.form_container label {
+  display: block;
   margin-bottom: 5px;
 }
 
-.product-item p {
-  margin: 0;
+.form_container input,
+.form_container textarea {
+  width: 200px;
+  padding: 5px;
+  margin-bottom: 10px;
 }

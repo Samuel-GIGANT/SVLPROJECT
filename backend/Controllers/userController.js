@@ -54,3 +54,10 @@ export async function deleteUser(req, res) {
         res.status(500).json({ message: error.message });
     }
 }
+export default {
+    createUser,
+    getAllUsers,
+    getUserById,
+    updateUser,
+    deleteUser
+};

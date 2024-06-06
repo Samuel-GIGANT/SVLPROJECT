@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { registration } from '../../Services/AuthServices';
 import './registrationForm.css';
@@ -9,7 +9,7 @@ function RegistrationForm() {
     email: '',
     password: '',
     adresse: '',
-    tel: '',
+    tel: ''
   });
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
@@ -20,14 +20,19 @@ function RegistrationForm() {
       [e.target.name]: e.target.value,
     });
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
+      // Vérification des champs avant l'envoi du formulaire
+      if (!userData.fullName || !userData.email || !userData.password || !userData.adresse || !userData.tel) {
+        setMessage('Tous les champs sont requis.');
+        return;
+      }
+
       const response = await registration(userData);
       console.log('User registered successfully:', response);
-      // Réinitialiser le formulaire après une inscription réussie
       setUserData({
         fullName: '',
         email: '',
@@ -36,13 +41,12 @@ function RegistrationForm() {
         tel: '',
       });
       localStorage.setItem('userConnected', JSON.stringify(userData));
-      localStorage.setItem("isUserLogged", "true")
-      // message pour l'inscription
-      setMessage('Vous êtes inscrit');
+      localStorage.setItem("isUserLogged", "true");
+
+      setMessage('Vous êtes inscrit avec succès.');
       navigate('/');
     } catch (error) {
       console.error('Registration error:', error);
-      // Stocker l'erreur dans l'état pour l'afficher à l'utilisateur
       setMessage(error.message || 'Une erreur est survenue lors de l\'inscription.');
     }
   };
@@ -50,7 +54,7 @@ function RegistrationForm() {
   return (
     <div>
       <h2>Veuillez vous enregistrer, merci !</h2>
-      {message && <p className="error-message">{message}</p>} {/* Afficher le message d'erreur s'il y en a */}
+      {message && <p className={`message ${message.includes('succès') ? 'success' : 'error'}`}>{message}</p>}
       <form onSubmit={handleSubmit} className="form-container">
         <div className="column1">
           <label htmlFor="fullName">Nom et Prénom :</label>
@@ -98,7 +102,7 @@ function RegistrationForm() {
             name="tel"
             value={userData.tel}
             onChange={handleChange}
-            placeholder="Phone Number"
+            placeholder="Votre numéro de téléphone"
           />
           <button type="submit">Envoyer</button>
         </div>
@@ -106,6 +110,5 @@ function RegistrationForm() {
     </div>
   );
 }
-
 
 export default RegistrationForm;

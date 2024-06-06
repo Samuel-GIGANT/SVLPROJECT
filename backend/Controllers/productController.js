@@ -12,7 +12,7 @@ export const createProduct = async (req, res) => {
 };
 
 // Fonction pour récupérer tous les produits
-export const getAllProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
     try {
         const products = await Product.find();
         res.status(200).json(products);
@@ -60,27 +60,10 @@ export const deleteProduct = async (req, res) => {
     }
 };
 
-// Fonction pour migrer les données
-export const migrateData = async (req, res) => {
-    try {
-        // Récupérez tous les produits de la base de données
-        const products = await Product.find();
-
-        // Parcourez chaque produit et effectuez les modifications nécessaires
-        for (const product of products) {
-            // Par exemple, vous pouvez ajouter le champ "marque" à chaque produit
-            product.marque = 'VotreMarque';
-            // Enregistrez les modifications dans la base de données
-            await product.save();
-        }
-
-        // Répondez avec un message de succès
-        res.status(200).json({ message: 'Migration des données terminée avec succès' });
-    } catch (error) {
-        // En cas d'erreur, répondez avec un code d'erreur et le message d'erreur
-        console.error('Erreur lors de la migration des données :', error);
-        res.status(500).json({ error: 'Erreur lors de la migration des données' });
-    }
-};
-
-export default migrateData;
+export default {
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct
+    };

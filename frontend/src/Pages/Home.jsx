@@ -9,19 +9,19 @@ function Home() {
         <h1>Bienvenue sur SVL</h1>
         <div className="home_gallery">
           <div className="home_img">
-            <a href="./Product">
+            <a href="./audio">
               <img src="./audio.jpg" alt="un microphone" />
               <span className="home_img_text">Explore </span>
             </a>
           </div>
           <div className="home_img">
-            <a href="./Product">
+            <a href="./light">
               <img src="./light.jpg" alt="une lumiere de cinema" />
               <span className="home_img_text">Explore </span>
             </a>
           </div>
           <div className="home_img">
-            <a href="./Product">
+            <a href="./video">
               <img src="./video.jpg" alt="une camera" />
               <span className="home_img_text">Explore </span>
             </a>

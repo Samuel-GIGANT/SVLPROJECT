@@ -22,6 +22,11 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputs)
+       // Validation des champs
+       if (!inputs.email || !inputs.password) {
+        setMessage('Veuillez remplir tous les champs.');
+        return;
+      }
     //faire un fetch sur /login
     try {
       const response = await fetch('http://localhost:3001/login', {
@@ -35,7 +40,7 @@ function LoginPage() {
       //recupérer la data et stoker dans le local storage si l'utilisateur existe, sinon mettre un message d'erreur('Veuillez vérifier votre email et votre mot de pass')
       const data = await response.json();
       console.log(data.user)
-      if (data.user) {
+      if (response.ok && data.user) {
         localStorage.setItem('userConnected', JSON.stringify(data.user));
         localStorage.setItem("isUserLogged", "true");
         setMessage(`connexion réussie `);

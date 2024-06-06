@@ -1,0 +1,30 @@
+/* src/Pages/NotFoundPage.css */
+
+.notFound-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; 
+  text-align: center;
+}
+
+.notFound-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.notFound-message {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.not-found-link {
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.not-found-link:hover {
+  color: red;
+  text-decoration: underline;
+}

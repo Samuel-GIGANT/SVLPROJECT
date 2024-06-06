@@ -2,7 +2,7 @@
 display: flex;
 gap: 20px;
 }
-.dashboard_content{
+.dashboard_product{
   display: flex;
   justify-content: space-between;
   flex: 1;

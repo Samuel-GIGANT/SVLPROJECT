@@ -4,9 +4,10 @@ import cors from 'cors';
 import userRoutes from './routes/userCrud.js';
 import authRoutes from './routes/authRoutes.js';
 import categoryRoutes from './routes/categoryCrud.js';
-import productRoutes from './routes/productCrud.js';
+import productRoutes from './routes/productRoute.js';
 import orderRoutes from './routes/orderCrud.js';
 import orderDetailRoutes from './routes/orderDetailCrud.js';
+import Product from './models/productModel.js';
 import User from './models/userModel.js';
 import { hash, compare } from 'bcrypt';
 
@@ -14,7 +15,9 @@ import { hash, compare } from 'bcrypt';
 const app = express();
 
 // Utilisation du middleware CORS pour permettre les requêtes cross-origin
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 
 // Middleware pour parser les corps des requêtes en JSON
 app.use(json());
@@ -93,6 +96,38 @@ app.delete('/users/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+//Route product
+app.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find(); 
+    console.log(products);
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+app.post('/products', async (req, res) => {
+  try {
+    const newProduct = new Product(req.body);
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+app.get('/products/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'produit introuvable' });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 // Route register
 app.post('/register', async (req, res) => {

@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
   description: String,
   marque: String,
   price: {
-    type: Number,
+    type: String,
     required: true
   },
   quantity: {
@@ -19,6 +19,6 @@ const productSchema = new mongoose.Schema({
   }
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model('Products', productSchema);
 
 export default Product;
