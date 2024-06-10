@@ -6,14 +6,15 @@ const Product = ({ products, setProducts }) => {
   const [newProduct, setNewProduct] = useState({
     name: '',
     description: '',
+    marque: '',
     price: '',
-    quantity: ''
+    quantity: '',
+    category: ''
   });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [categories, setCategories] = useState([]);
 
-//https://react.dev/reference/react/useCallback 
-//useCallback sert à ce que fetcExistingProducts ne se recréer à chaque rendu de la fonction
   const fetchExistingProducts = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3001/products');
@@ -32,6 +33,23 @@ const Product = ({ products, setProducts }) => {
     fetchExistingProducts();
   }, [fetchExistingProducts]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/categories');
+        if (response.ok) {
+          const categoriesData = await response.json();
+          setCategories(categoriesData);
+        } else {
+          console.error('Failed to fetch categories');
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   const handleInputChange = (e) => {
     setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
   };
@@ -49,7 +67,7 @@ const Product = ({ products, setProducts }) => {
       if (response.ok) {
         const newData = await response.json();
         setProducts([...products, newData]);
-        setNewProduct({ name: '', description: '', price: '', quantity: '' });
+        setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '' });
       } else {
         console.error('Erreur lors de la création du produit');
       }
@@ -65,17 +83,19 @@ const Product = ({ products, setProducts }) => {
     setNewProduct({
       name: productToUpdate.name,
       description: productToUpdate.description,
+      marque: productToUpdate.marque,
       price: productToUpdate.price,
-      quantity: productToUpdate.quantity
+      quantity: productToUpdate.quantity,
+      category: productToUpdate.category || ''
     });
   };
-  
+
   const handleCancelEdit = () => {
     setSelectedProductId(null);
     setIsEditing(false);
-    setNewProduct({ name: '', description: '', price: '', quantity: '' });
+    setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '' });
   };
-  
+
   const handleUpdate = async (productId) => {
     try {
       const response = await fetch(`http://localhost:3001/products/${productId}`, {
@@ -93,7 +113,7 @@ const Product = ({ products, setProducts }) => {
           return product;
         });
         setProducts(updatedProducts);
-        setNewProduct({ name: '', description: '', price: '', quantity: '' });
+        setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '' });
         setSelectedProductId(null);
         setIsEditing(false);
       } else {
@@ -106,6 +126,7 @@ const Product = ({ products, setProducts }) => {
 
   const handleDelete = async (productId) => {
     try {
+      // console.log(handleDelete);
       const response = await fetch(`http://localhost:3001/products/${productId}`, {
         method: 'DELETE',
       });
@@ -119,6 +140,11 @@ const Product = ({ products, setProducts }) => {
       console.error('Erreur lors de la suppression du produit:', error);
     }
   };
+
+  const handleCategoryChange = (e) => {
+    setNewProduct({ ...newProduct, category: e.target.value });
+  };
+
 
   return (
     <div className="prod">
@@ -145,6 +171,16 @@ const Product = ({ products, setProducts }) => {
             />
           </div>
           <div>
+            <label htmlFor="marque">Marque :</label>
+            <input
+              type="text"
+              id="marque"
+              name="marque"
+              value={newProduct.marque}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
             <label htmlFor="price">Prix :</label>
             <input
               type="text"
@@ -152,7 +188,7 @@ const Product = ({ products, setProducts }) => {
               name="price"
               value={newProduct.price}
               onChange={handleInputChange}
-              />
+            />
           </div>
           <div>
             <label htmlFor="quantity">Quantité :</label>
@@ -163,6 +199,20 @@ const Product = ({ products, setProducts }) => {
               value={newProduct.quantity}
               onChange={handleInputChange}
             />
+          </div>
+          <div>
+            <label htmlFor="category">Catégorie :</label>
+            <select
+              id="category"
+              name="category"
+              value={newProduct.category}
+              onChange={handleCategoryChange}
+            >
+              <option value="">Sélectionner une catégorie</option>
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>{category.name}</option>
+              ))}
+            </select>
           </div>
           <button type="submit">{isEditing ? 'Modifier' : 'Ajouter'}</button>
           {isEditing && <button type="button" onClick={handleCancelEdit}>Annuler</button>}
@@ -176,8 +226,10 @@ const Product = ({ products, setProducts }) => {
             <li key={product._id}>
               <h3>{product.name}</h3>
               <p className=''>{product.description}</p>
+              <p><b>Marque :</b> {product.marque}</p>
               <p>Prix : {product.price}</p>
               <p>Quantité : {product.quantity}</p>
+              <p><b>Catégorie :</b> {product.category && product.category.name}</p>
               <div>
                 <button className="btn_delete" onClick={() => handleDelete(product._id)}>
                   <FaTrash /> Supprimer

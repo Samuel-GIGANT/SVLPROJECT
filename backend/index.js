@@ -1,12 +1,7 @@
 import express, { json } from 'express';
 import { connect } from 'mongoose';
 import cors from 'cors';
-import userRoutes from './routes/userCrud.js';
-import authRoutes from './routes/authRoutes.js';
-import categoryRoutes from './routes/categoryCrud.js';
-import productRoutes from './routes/productRoute.js';
-import orderRoutes from './routes/orderCrud.js';
-import orderDetailRoutes from './routes/orderDetailCrud.js';
+import categoryRoutes from './routes/categoryRoute.js';
 import Product from './models/productModel.js';
 import User from './models/userModel.js';
 import { hash, compare } from 'bcrypt';
@@ -173,6 +168,9 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+//Route categories
+app.use('/categories', categoryRoutes);
 
 // Port d'écoute du serveur
 const PORT = process.env.PORT || 3001;

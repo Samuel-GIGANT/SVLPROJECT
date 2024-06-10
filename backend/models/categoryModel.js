@@ -5,5 +5,5 @@ const categoryShema = new Schema({
   description:String,
 })
 
-const category = model("category", categoryShema)
-export default category
+const Category = model("category", categoryShema)
+export default Category
