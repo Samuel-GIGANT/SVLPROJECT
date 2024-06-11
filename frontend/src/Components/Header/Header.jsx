@@ -5,7 +5,8 @@ import { AiFillShopping, AiOutlineAudio } from "react-icons/ai";
 import { GoLightBulb } from "react-icons/go";
 import { BsCamera } from "react-icons/bs";
 import { Link, useNavigate } from 'react-router-dom';
-import Modal from '../Modal/Modal'; // Importez votre composant de modale
+import Modal from '../Modal/Modal'; 
+import Cart, { getNumberProduct } from '../../Pages/Cart';
 import './header.css';
 
 const Header = () => {
@@ -81,7 +82,12 @@ const Header = () => {
               )}
             </div>
             <div>
-              <Link to="/cart"><AiFillShopping /></Link>
+              <Link to="/cart">
+                <span className="cart-icon">
+                  <AiFillShopping />
+                  <span className="cart-item-count">{getNumberProduct()}</span>
+                </span>
+              </Link>
             </div>
           </div>
         </nav>

@@ -17,7 +17,7 @@ const ProductsDetails = () => {
     };
 
     fetchProducts();
-  }, []); // Le tableau vide signifie que cet effet s'exécute une seule fois après le premier rendu
+  }, []); 
 
   return (
     <div>

@@ -9,7 +9,7 @@ function Home() {
         <h1>Bienvenue sur SVL</h1>
         <div className="home_gallery">
           <div className="home_img">
-            <a href="./audio">
+            <a href="./sound">
               <img src="./audio.jpg" alt="un microphone" />
               <span className="home_img_text">Explore </span>
             </a>

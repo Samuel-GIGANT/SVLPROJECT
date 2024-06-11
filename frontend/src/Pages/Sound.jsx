@@ -1,7 +1,6 @@
-// sound.jsx
-
 import React, { useEffect, useState } from 'react';
 import './sound.css';
+import { addCart, getCart, saveCart } from './Cart';
 
 const Product = ({ initialProducts }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -16,10 +15,13 @@ const Product = ({ initialProducts }) => {
       const res = await fetch(`http://localhost:3001/products/${id}`);
       const data = await res.json();
       setSelectedProduct(data);
-
     } catch (error) {
       console.error('Erreur lors de la récupération du produit :', error);
     }
+  };
+  const handleAddToCart = (product) => {
+    addCart(product);
+    alert("Le produit a été ajouté au panier !");
   };
 
   return (
@@ -39,11 +41,12 @@ const Product = ({ initialProducts }) => {
             <div className="product-description-end">
               <p>Categorie: {selectedProduct.category}</p>
               <p>Quantité: {selectedProduct.quantity}</p>
-              <p>Prix: {selectedProduct.price}</p>
+              <p>Prix: {selectedProduct.price} €</p>
             </div>
-          <div className="btn">
-            <button>Ajouter au panier</button>
-          </div>
+            <div className="btn">
+              <button onClick={() => handleAddToCart(selectedProduct)}>Ajouter au panier</button>
+            </div>
+            <div className="sound-alert">Produit ajouté !</div>
           </div>
         </div>
       ) : (
@@ -52,6 +55,5 @@ const Product = ({ initialProducts }) => {
     </div>
   );
 };
-
 
 export default Product;

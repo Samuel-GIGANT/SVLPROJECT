@@ -9,25 +9,30 @@ header {
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 .header_Logo a{
   font-weight: 700;
   color: var(--primary--color);
 }
+
 .header_logo, span{
   font-weight: 700;
   color: red;
 }
+
 .header_login {
   display: flex;
   align-items: center;
   gap: 20px;
   font-size: 2.5rem;
 }
+
 .header_login a {
   display: flex;
   align-items: center;
   color: inherit;
 }
+
 .header_login a:hover {
   color: var(--bouton-hover--color);
 }
@@ -40,12 +45,13 @@ header {
   background-color: var(--light--color);
   padding: 10px;
 }
+
 .header_Nav ul {
   display: flex;
   align-items: center;
   padding: 0;
   margin: 0;
-  gap:50px;
+  gap: 50px;
 }
 
 .header_Nav a {
@@ -57,4 +63,19 @@ header {
 .header_Nav li a:hover {
   color: var(--bouton-hover--color);
   transition: ease-in-out 0.2s;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-item-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 0.8rem;
 }
