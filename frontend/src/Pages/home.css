@@ -1,57 +1,63 @@
-.container {
-  max-width: 1900px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.home {
-  height: 100%;
-}
-
-.home h1 {
-  text-align: center;
-  font-weight: 700;
-  font-size: 5rem;
-  margin: 60px 0; /* Réduit la marge verticale */
-}
-
-.home_gallery {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  overflow-x: auto; /* Ajoute un défilement horizontal si nécessaire */
-}
-
-.home_img {
+/* home css*/
+.hero {
+  background-image: url("../Assets/svl.png");
+  height: 500px;
   position: relative;
-  width: 30%;
-  max-width: 300px; /* Limite la largeur des images */
+  background-size:fill;
+  background-repeat: no-repeat;
+  /* border: 2px solid red; */
 }
 
-.home_img img {
-  width: 100%; /* Utilise la largeur complète du conteneur */
+.hero h1 {
+  color: #F5F5F5;
+  text-align: center;
+  font-weight: 500;
+  font-size: 5rem;
+  margin: 50px auto;
+  padding: 40px;
+  
 }
 
-.home_img_text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px 30px;
-  border-radius: 5px;
-  color: #000;
-  text-decoration: none;
+.hero span {
+  color: red;
 }
 
-.home_img_text:after {
-  content: '>';
-  margin-left: 10px; /* Ajuste la marge */
+.hero p {
+  width: 80%;
+  margin:0 auto;
+  text-align: left;
+  font-size: 2rem;
+  color: #CCC;
+  /* background: linear-gradient(to right, hsl(0, 0%, 93%) 0, hsl(0, 5%, 70%) 10%, hsl(0, 1%, 48%) 20%);
+  background-clip: text ;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  border: 1px solid green;
+}*/
+/* @keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 600px;
+  }
+  100% {
+    background-position: 600px;
+  }
+} */
 }
-
-.home_infos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 30px 0; /* Réduit la marge verticale */
+.hero-reseaux{
+  font-size: 2rem;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: #CCC;
+ padding: 40px;
+ gap: 50px;
+ cursor: pointer;
+}
+.hero-reseaux:hover{
+  text-transform: uppercase;
+  transition: 0.4s ease-in-out;
 }

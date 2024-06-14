@@ -9,19 +9,34 @@ const Categories = () => {
       <h2>CATEGORIES</h2>
     </div>
       <main>
-        <div>
-          <h2>sound</h2>
+      <div className="categorie_gallery">
+          <div className="categorie_img">
+            <a href="./sound">
+              <img src="./audio.jpg" alt="un microphone" />
+              <span className="categorie_img_text">Explore </span>
+            </a>
+          </div>
+          <div className="categorie_img">
+            <a href="./light">
+              <img src="./light.jpg" alt="une lumiere de cinema" />
+              <span className="categorie_img_text">Explore </span>
+            </a>
+          </div>
+          <div className="categorie_img">
+            <a href="./video">
+              <img src="./video.jpg" alt="une camera" />
+              <span className="categorie_img_text">Explore </span>
+            </a>
+          </div>
         </div>
-      <aside className='sidebar'>
-        <div className="sidebar_title">
-          <h2>Categories</h2>
-          <ul>
-            <li><Link to="/productdetails/audio">Sound</Link></li>
-            <li><Link to="/productdetails/video">Video</Link></li>
-            <li><Link to="/productdetails/light">Light</Link></li>
-          </ul>
+        <br />
+        <div className="categorie_infos">
+          <p><strong>SVL</strong> Sound Video Light
+          Retrouvez nos catégories et nos prduits. <br />
+          Trouver tout ce qu'il vous faut pour débuter votre projet.
+
+          </p>
         </div>
-      </aside>
       </main>
     </>
   );
