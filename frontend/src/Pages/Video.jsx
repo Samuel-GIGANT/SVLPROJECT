@@ -1,20 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './video.css';
+import { addCart, getCart, saveCart } from './Cart';
 
-const Video = () => {
+const Product = ({ initialProducts }) => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    // Récupérer le produit avec son ID lors du montage du composant
+    fetchProductById('665ee4e3c8d09bbf8489d88a');
+  }, []);
+
+  const fetchProductById = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:3001/products/${id}`);
+      const data = await res.json();
+      setSelectedProduct(data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération du produit :', error);
+    }
+  };
+  const handleAddToCart = (product) => {
+    addCart(product);
+    alert("Le produit a été ajouté au panier !");
+  };
 
   return (
-    <div className='video'>
-      <h1>video</h1>
-      <div className="video-card">
-        <h2>VIDEO PAGES</h2>
-        <div><img src="./video.jpg" alt="Video thumbnail" /></div>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat placeat repellendus nisi, quo velit voluptatum odio nobis cupiditate asperiores ipsa ex vel? Odit ullam sint hic rerum. Officiis, ex nihil.</p>
-        <p>Quantité: 5</p>
-        <p>Price: 2450€</p>
-        <button>Ajouter au panier</button>
-      </div>
+    <div>
+      {selectedProduct ? (
+        <div className="product-container">
+          <h2 className="product-name">{selectedProduct.name}</h2>
+          <div className="product-details">
+            <div className="product-details-img">
+              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Angle-scaled.jpg" alt="" />
+              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Back-scaled.jpg" alt="" />
+              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Left-scaled.jpg" alt="" />
+              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Right-scaled.jpg" alt="" />
+            </div>
+            <p className="product-description"><b>Description:</b><br /> {selectedProduct.description}</p>
+            <hr />
+            <div className="product-description-end">
+              <p>Categorie: {selectedProduct.category}</p>
+              <p>Quantité: {selectedProduct.quantity}</p>
+              <p>Prix: {selectedProduct.price} €</p>
+            </div>
+            <div className="btn">
+              <button onClick={() => handleAddToCart(selectedProduct)}>Ajouter au panier</button>
+            </div>
+            <div className="sound-alert">Produit ajouté !</div>
+          </div>
+        </div>
+      ) : (
+        <p className="loading-message">Chargement du produit...</p>
+      )}
     </div>
-  )
-}
-export default Video;
+  );
+};
+
+export default Product;

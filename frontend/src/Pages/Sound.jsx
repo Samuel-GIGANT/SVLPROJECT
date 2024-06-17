@@ -7,7 +7,7 @@ const Product = ({ initialProducts }) => {
 
   useEffect(() => {
     // Récupérer le produit avec son ID lors du montage du composant
-    fetchProductById('665ee4e3c8d09bbf8489d88a');
+    fetchProductById('6659f41d9d014ef1d3555e94');
   }, []);
 
   const fetchProductById = async (id) => {
@@ -31,10 +31,8 @@ const Product = ({ initialProducts }) => {
           <h2 className="product-name">{selectedProduct.name}</h2>
           <div className="product-details">
             <div className="product-details-img">
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Angle-scaled.jpg" alt="" />
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Back-scaled.jpg" alt="" />
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Left-scaled.jpg" alt="" />
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Right-scaled.jpg" alt="" />
+              <img className="product-image" src="./microrode2.jpg" alt="" />
+              <img className="product-image" src="" alt="" />
             </div>
             <p className="product-description"><b>Description:</b><br /> {selectedProduct.description}</p>
             <hr />

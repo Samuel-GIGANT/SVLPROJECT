@@ -5,7 +5,7 @@ import { compare } from 'bcrypt';
 const registerUser = async (req, res) => {
     try {
         // Créez un nouvel utilisateur en utilisant les données de la requête
-        const newUser = new User(req.body); // Utilisez User au lieu de userModel
+        const newUser = new User(req.body); 
         // Enregistrez le nouvel utilisateur dans la base de données MongoDB
         await newUser.save();
         // Répondez avec le nouvel utilisateur créé

@@ -9,6 +9,15 @@ import { hash, compare } from 'bcrypt';
 // Créer une instance de l'application Express
 const app = express();
 
+// Connexion à la base de données MongoDB
+connect('mongodb://localhost:27017/svl', {
+}).then(() => {
+  console.log('Connexion à MongoDB réussie');
+}).catch((err) => {
+  console.error('Erreur de connexion à MongoDB', err);
+});
+
+
 // Utilisation du middleware CORS pour permettre les requêtes cross-origin
 app.use(cors({
   origin: '*'
@@ -17,13 +26,6 @@ app.use(cors({
 // Middleware pour parser les corps des requêtes en JSON
 app.use(json());
 
-// Connexion à la base de données MongoDB
-connect('mongodb://localhost:27017/svl', {
-}).then(() => {
-  console.log('Connexion à MongoDB réussie');
-}).catch((err) => {
-  console.error('Erreur de connexion à MongoDB', err);
-});
 
 // Utilisation des routes d'authentification
 // app.use('/auth', authRoutes);
