@@ -10,7 +10,6 @@ function Home() {
     <div className="home">
       <div className="hero">
         <h1>Bienvenue sur <span>SVL</span></h1>
-
         <p>
           <span>SVL</span> est reconnue dans le secteur de l'audiovisuel nous voulons être acteur dans vos projets <br />
           et vous apportez les solutions adèquats à vos besoins. <br />

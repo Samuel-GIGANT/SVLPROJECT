@@ -7,6 +7,7 @@ const data = [
     marque: 'Rode',
     price: '79€',
     quantity: 10,
+    category: ('666711cc7c9461335a6aa203'),
     __v: 0
   },
   {

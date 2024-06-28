@@ -61,3 +61,11 @@
   text-transform: uppercase;
   transition: 0.4s ease-in-out;
 }
+@media screen and (max-width:768px){
+  .hero p{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: 1rem;
+  }
+}

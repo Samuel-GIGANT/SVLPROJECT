@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import { BiSolidUser } from "react-icons/bi";
 import { AiFillShopping, AiOutlineAudio } from "react-icons/ai";
 import { GoLightBulb } from "react-icons/go";
 import { BsCamera } from "react-icons/bs";
 import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../../Components/Stripe/CartContext';
 import Modal from '../Modal/Modal';
-import Cart, { getNumberProduct } from '../../Pages/Cart';
 import './header.css';
 
 const Header = () => {
+  const { getNumberProduct } = useCart(); // Utilisation correcte de useCart pour obtenir la fonction getNumberProduct
+
   const [userNameConnected, setUserNameConnected] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -29,7 +31,7 @@ const Header = () => {
       setUserNameConnected('');
       setUserInfo(null);
     }
-  }, [isConnected]);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("isUserLogged");
@@ -57,23 +59,21 @@ const Header = () => {
       <header className='header'>
         <nav className={`header_Nav ${showLinks ? "show_nav" : "hide_nav"}`}>
           <div className="header_Logo">
-            <a href="/"><span>SVL</span> Sound Vidéo Light</a>
+            <Link to="/"><span>SVL</span> Sound Vidéo Light</Link>
           </div>
           <ul className="navbar_links">
-            <li className="navbar_item"><a href="/" className="navbar_link"><IoHomeOutline /> Home</a></li>
-            <li className="navbar_item"><a href="/sound" className="navbar_link"><AiOutlineAudio /> Sound</a></li>
-            <li className="navbar_item"><a href="/video" className="navbar_link"><BsCamera /> Video</a></li>
-            <li className="navbar_item"><a href="/light" className="navbar_link"><GoLightBulb /> Light</a></li>
+            <li className="navbar_item"><Link to="/" className="navbar_link"><IoHomeOutline /> Home</Link></li>
+            <li className="navbar_item"><Link to="/sound" className="navbar_link"><AiOutlineAudio /> Sound</Link></li>
+            <li className="navbar_item"><Link to="/video" className="navbar_link"><BsCamera /> Video</Link></li>
+            <li className="navbar_item"><Link to="/light" className="navbar_link"><GoLightBulb /> Light</Link></li>
             {isConnected && userInfo && userInfo.role === 'admin' && (
-              <li className="navbar_item"><a href="/dashboard" className="navbar_link">Dashboard</a></li>
+              <li className="navbar_item"><Link to="/dashboard" className="navbar_link">Dashboard</Link></li>
             )}
           </ul>
           <div className="header_login">
             <div className="header_icons_login">
               {isConnected ? (
-                <>
-                  <span onClick={openModal}>{userNameConnected}</span>
-                </>
+                <span onClick={openModal}>{userNameConnected}</span>
               ) : (
                 <Link to="/login"><BiSolidUser /></Link>
               )}

@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './video.css';
-import { addCart, getCart, saveCart } from './Cart';
+import { useCart } from '../Components/Stripe/CartContext'; 
 
-const Product = ({ initialProducts }) => {
+const Product = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const { addToCart } = useCart();
+
+   // Tableau des URL des images
+   const productImages = [
+    "./Blackmagic-Studio-Camera-4K-Pro-G2-Angle-scaled.jpg",
+    "./Blackmagic-Studio-Camera-4K-Pro-G2-Back-scaled.jpg",
+    "./Blackmagic-Studio-Camera-4K-Pro-G2-Left-scaled.jpg",
+    "./Blackmagic-Studio-Camera-4K-Pro-G2-Right-scaled.jpg"
+  ];
 
   useEffect(() => {
     // Récupérer le produit avec son ID lors du montage du composant
@@ -13,16 +22,21 @@ const Product = ({ initialProducts }) => {
   const fetchProductById = async (id) => {
     try {
       const res = await fetch(`http://localhost:3001/products/${id}`);
+      if (!res.ok) {
+        throw new Error('Failed to fetch product');
+      }
       const data = await res.json();
       setSelectedProduct(data);
     } catch (error) {
       console.error('Erreur lors de la récupération du produit :', error);
     }
   };
+
   const handleAddToCart = (product) => {
-    addCart(product);
+    addToCart(product);
     alert("Le produit a été ajouté au panier !");
   };
+
 
   return (
     <div>
@@ -31,10 +45,9 @@ const Product = ({ initialProducts }) => {
           <h2 className="product-name">{selectedProduct.name}</h2>
           <div className="product-details">
             <div className="product-details-img">
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Angle-scaled.jpg" alt="" />
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Back-scaled.jpg" alt="" />
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Left-scaled.jpg" alt="" />
-              <img className="product-image" src="./Blackmagic-Studio-Camera-4K-Pro-G2-Right-scaled.jpg" alt="" />
+              {productImages.map((src, index) => (
+                <img key={index} className="product-image" src={src} alt={`Product view ${index + 1}`} />
+              ))}
             </div>
             <p className="product-description"><b>Description:</b><br /> {selectedProduct.description}</p>
             <hr />
