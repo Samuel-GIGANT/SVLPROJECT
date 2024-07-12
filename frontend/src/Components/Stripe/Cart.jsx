@@ -9,6 +9,8 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
+  console.log('Rendering Cart with products:', cart);
+
   const handlePaymentSuccess = () => {
     handleEmptyCart();
 
@@ -19,10 +21,10 @@ const Cart = () => {
     navigate('/confirmation');
 
     // Simuler l'envoi d'un e-mail de confirmation (vous pouvez remplacer cela par un appel API réel)
-    console.log("E-mail de confirmation envoyé à l'utilisateur.");
+    // console.log("E-mail de confirmation envoyé à l'utilisateur.");
 
     // Mettre à jour les statistiques ou l'historique des commandes (à implémenter selon votre logique)
-    console.log("L'historique des commandes a été mis à jour.");
+    // console.log("L'historique des commandes a été mis à jour.");
 
   };
   

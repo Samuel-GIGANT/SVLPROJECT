@@ -14,7 +14,9 @@ const Product = ({ products, setProducts }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [message, setMessage] = useState(null);
 
+  // Fetch des produits existants au montage du composant
   const fetchExistingProducts = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3001/products');
@@ -33,6 +35,7 @@ const Product = ({ products, setProducts }) => {
     fetchExistingProducts();
   }, [fetchExistingProducts]);
 
+  // Fetch des catégories au montage du composant
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -50,12 +53,25 @@ const Product = ({ products, setProducts }) => {
     fetchCategories();
   }, []);
 
+  // Mise à jour des champs du formulaire
   const handleInputChange = (e) => {
     setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
   };
 
+  // Validation simple du formulaire
+  const validateForm = () => {
+    if (!newProduct.name || !newProduct.price || !newProduct.quantity || !newProduct.category) {
+      setMessage('Veuillez remplir tous les champs obligatoires.');
+      return false;
+    }
+    return true;
+  };
+
+  // Soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     try {
       const response = await fetch('http://localhost:3001/products', {
         method: 'POST',
@@ -68,6 +84,7 @@ const Product = ({ products, setProducts }) => {
         const newData = await response.json();
         setProducts([...products, newData]);
         setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '' });
+        setMessage('Produit ajouté avec succès.');
       } else {
         console.error('Erreur lors de la création du produit');
       }
@@ -76,6 +93,7 @@ const Product = ({ products, setProducts }) => {
     }
   };
 
+  // Édition d'un produit existant
   const handleEdit = (productId) => {
     setSelectedProductId(productId);
     setIsEditing(true);
@@ -88,14 +106,18 @@ const Product = ({ products, setProducts }) => {
       quantity: productToUpdate.quantity,
       category: productToUpdate.category || ''
     });
+    setMessage(null);
   };
 
+  // Annulation de l'édition
   const handleCancelEdit = () => {
     setSelectedProductId(null);
     setIsEditing(false);
     setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '' });
+    setMessage(null);
   };
 
+  // Mise à jour d'un produit existant
   const handleUpdate = async (productId) => {
     try {
       const response = await fetch(`http://localhost:3001/products/${productId}`, {
@@ -116,6 +138,7 @@ const Product = ({ products, setProducts }) => {
         setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '' });
         setSelectedProductId(null);
         setIsEditing(false);
+        setMessage('Produit mis à jour avec succès.');
       } else {
         console.error('Erreur lors de la mise à jour du produit');
       }
@@ -124,15 +147,38 @@ const Product = ({ products, setProducts }) => {
     }
   };
 
+  // const handleDelete = async (productId) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:3001/products/${productId}`, {
+  //       method: 'DELETE',
+  //     });
+  
+  //     if (response.ok) {
+  //       const updatedProducts = products.filter(product => product._id !== productId);
+  //       setProducts(updatedProducts);
+  //       setMessage('Produit supprimé avec succès.');
+  //     } else {
+  //       const errorText = await response.text(); // Récupérer le texte brut de la réponse en cas d'erreur
+  //       console.error('Erreur lors de la suppression du produit:', errorText);
+  //       setMessage(`Erreur lors de la suppression du produit: ${errorText}`);
+  //     }
+  //   } catch (error) {
+  //     console.error('Erreur lors de la suppression du produit:', error);
+  //     setMessage(`Erreur lors de la suppression du produit: ${error.message}`);
+  //   }
+  // };
+  
+
+  // Suppression d'un produit
   const handleDelete = async (productId) => {
     try {
-      // console.log(handleDelete);
       const response = await fetch(`http://localhost:3001/products/${productId}`, {
         method: 'DELETE',
       });
       if (response.ok) {
         const updatedProducts = products.filter(product => product._id !== productId);
         setProducts(updatedProducts);
+        setMessage('Produit supprimé avec succès.');
       } else {
         console.error('Erreur lors de la suppression du produit');
       }
@@ -141,10 +187,10 @@ const Product = ({ products, setProducts }) => {
     }
   };
 
+  // Changement de la catégorie du produit
   const handleCategoryChange = (e) => {
     setNewProduct({ ...newProduct, category: e.target.value });
   };
-
 
   return (
     <div className="prod">
@@ -216,6 +262,7 @@ const Product = ({ products, setProducts }) => {
           </div>
           <button type="submit">{isEditing ? 'Modifier' : 'Ajouter'}</button>
           {isEditing && <button type="button" onClick={handleCancelEdit}>Annuler</button>}
+          {message && <p>{message}</p>}
         </form>
       </div>
 
@@ -249,4 +296,3 @@ const Product = ({ products, setProducts }) => {
 };
 
 export default Product;
-

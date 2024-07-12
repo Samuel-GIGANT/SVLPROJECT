@@ -18,10 +18,10 @@ router.delete('/products/:id', productController.deleteProduct);
 
 // Routes pour les opérations CRUD sur les commandes
 router.get('/orders', orderController.getAllOrders);
-router.get('/orders/:id', orderController.getOrderById);
-router.post('/orders', orderController.createOrder);
-router.put('/orders/:id', orderController.updateOrder);
-router.delete('/orders/:id', orderController.deleteOrder);
+router.get('/order/:id', orderController.getOrderById);
+router.post('/order', orderController.createOrder);
+router.put('/order/:id', orderController.updateOrder);
+router.delete('/order/:id', orderController.deleteOrder);
 
 // Routes pour les opérations CRUD sur le panier
 router.get('/cart', cartController.getCartItems);

@@ -10,8 +10,7 @@ import Modal from '../Modal/Modal';
 import './header.css';
 
 const Header = () => {
-  const { getNumberProduct } = useCart(); // Utilisation correcte de useCart pour obtenir la fonction getNumberProduct
-
+  const { getNumberProduct } = useCart(); 
   const [userNameConnected, setUserNameConnected] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [userInfo, setUserInfo] = useState(null);

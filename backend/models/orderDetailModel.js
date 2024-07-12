@@ -7,11 +7,11 @@ const orderDetailSchema = new Schema({
   },
   product: {
     type: Schema.Types.ObjectId,
-    ref: 'Product' // Assurez-vous que 'Product' est le nom correct de votre modèle de produits
+    ref: 'Product' 
   },
   order: {
     type: Schema.Types.ObjectId,
-    ref: 'Order' // Assurez-vous que 'Order' est le nom correct de votre modèle d'ordre
+    ref: 'Order' 
   }
 });
 

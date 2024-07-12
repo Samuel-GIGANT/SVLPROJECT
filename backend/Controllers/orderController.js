@@ -1,4 +1,4 @@
-import Order, { find, findById, findByIdAndUpdate, findByIdAndDelete } from '../models/orderModel.js';
+import Order from '../models/orderModel.js';
 
 // Créer une nouvelle commande
 export async function createOrder(req, res) {
@@ -14,7 +14,7 @@ export async function createOrder(req, res) {
 // Récupérer toutes les commandes
 export async function getAllOrders(req, res) {
     try {
-        const orders = await find();
+        const orders = await Order.find();
         res.status(200).json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -24,7 +24,7 @@ export async function getAllOrders(req, res) {
 // Récupérer une commande par son ID
 export async function getOrderById(req, res) {
     try {
-        const order = await findById(req.params.id);
+        const order = await Order.findById(req.params.id);
         if (!order) {
             return res.status(404).json({ message: 'Commande introuvable' });
         }
@@ -37,7 +37,7 @@ export async function getOrderById(req, res) {
 // Mettre à jour une commande
 export async function updateOrder(req, res) {
     try {
-        const updatedOrder = await findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedOrder = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedOrder) {
             return res.status(404).json({ message: 'Commande introuvable' });
         }
@@ -50,7 +50,7 @@ export async function updateOrder(req, res) {
 // Supprimer une commande
 export async function deleteOrder(req, res) {
     try {
-        const deletedOrder = await findByIdAndDelete(req.params.id);
+        const deletedOrder = await Order.findByIdAndDelete(req.params.id);
         if (!deletedOrder) {
             return res.status(404).json({ message: 'Commande introuvable' });
         }

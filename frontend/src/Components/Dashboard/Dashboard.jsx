@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {  Routes, Route } from 'react-router-dom';
 import Sidebar from './Sidebar.jsx';
 import Product from '../../Pages/Product';
+import Order from '../Dashboard/Order.jsx'
 import User from '../../Pages/User';
 import './dashboard.css';
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [orders, setOrders] =  useState ([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,6 +23,23 @@ const Dashboard = () => {
       } catch (error) {
         console.error('Error fetching products:', error);
       }
+    };
+    fetchProducts();
+    }, []);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch('/api/orders');
+        if (!response.ok) {
+          throw new Error('Failed to fetch orders');
+        }
+        const data = await response.json();
+        setOrders(data);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+      fetchOrders();
     };
 
     // const fetchUsers = async () => {
@@ -36,7 +55,7 @@ const Dashboard = () => {
     //   }
     // };
 
-    fetchProducts();
+    // fetchProducts();
     // fetchUsers();
   }, []);
 
@@ -47,6 +66,7 @@ const Dashboard = () => {
       <div className="dashboard-content">
         <Routes>
           <Route path="products" element={<Product products={products} setProducts={setProducts} />} />
+          <Route path="orders" element={<Order order={orders} setOrders={setOrders} />} />
           <Route path="/dashboard/users" element={<User users={users} setUsers={setUsers} />} />
 
         </Routes>

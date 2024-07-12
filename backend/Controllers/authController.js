@@ -19,9 +19,11 @@ const registerUser = async (req, res) => {
 // Fonction pour gérer l'authentification de l'utilisateur
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
+    console.log(email);
     try {
         // Trouvez l'utilisateur dans la base de données en fonction de l'adresse e-mail
         const user = await User.findOne({ email });
+        console.log(email);
         if (!user) {
             return res.status(401).json({ message: "Adresse e-mail ou mot de passe incorrect" });
         }

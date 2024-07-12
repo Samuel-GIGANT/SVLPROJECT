@@ -12,6 +12,7 @@ function RegistrationForm() {
     tel: ''
   });
   const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,15 +25,20 @@ function RegistrationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    try {
-      // Vérification des champs avant l'envoi du formulaire
-      if (!userData.fullName || !userData.email || !userData.password || !userData.adresse || !userData.tel) {
-        setMessage('Tous les champs sont requis.');
-        return;
-      }
+    // Vérification des champs avant l'envoi du formulaire
+    if (!userData.fullName || !userData.email || !userData.password || !userData.adresse || !userData.tel) {
+      setMessage('Tous les champs sont requis.');
+      return;
+    }
 
+    setIsLoading(true);
+    setMessage(null);
+  
+    try {
       const response = await registration(userData);
       console.log('User registered successfully:', response);
+
+      // Réinitialiser le formulaire après une inscription réussie
       setUserData({
         fullName: '',
         email: '',
@@ -40,14 +46,19 @@ function RegistrationForm() {
         adresse: '',
         tel: '',
       });
+
+      // Stocker les informations utilisateur dans le localStorage
       localStorage.setItem('userConnected', JSON.stringify(userData));
       localStorage.setItem("isUserLogged", "true");
 
+      // Redirection et message de succès
       setMessage('Vous êtes inscrit avec succès.');
       navigate('/');
     } catch (error) {
       console.error('Registration error:', error);
       setMessage(error.message || 'Une erreur est survenue lors de l\'inscription.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -65,6 +76,7 @@ function RegistrationForm() {
             value={userData.fullName}
             onChange={handleChange}
             placeholder="Votre Nom et prénom"
+            required
           />
           <label htmlFor="email">Email :</label>
           <input
@@ -74,6 +86,7 @@ function RegistrationForm() {
             value={userData.email}
             onChange={handleChange}
             placeholder="Votre Email"
+            required
           />
           <label htmlFor="password">Mot de passe :</label>
           <input
@@ -83,6 +96,7 @@ function RegistrationForm() {
             value={userData.password}
             onChange={handleChange}
             placeholder="Votre mot de passe"
+            required
           />
         </div>
         <div className="column2">
@@ -94,6 +108,7 @@ function RegistrationForm() {
             value={userData.adresse}
             onChange={handleChange}
             placeholder="Votre adresse"
+            required
           />
           <label htmlFor="tel">Numéro de téléphone :</label>
           <input
@@ -103,8 +118,11 @@ function RegistrationForm() {
             value={userData.tel}
             onChange={handleChange}
             placeholder="Votre numéro de téléphone"
+            required
           />
-          <button type="submit">Envoyer</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? 'Envoi en cours...' : 'Envoyer'}
+          </button>
         </div>
       </form>
     </div>

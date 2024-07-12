@@ -14,6 +14,7 @@ export const CartProvider = ({ children }) => {
   // Chargement du panier depuis localStorage lors du premier rendu
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    // console.log('Initializing cart from localStorage:', savedCart);
     setCart(savedCart);
   }, []);
 
@@ -24,6 +25,8 @@ export const CartProvider = ({ children }) => {
 
   // Fonction pour ajouter un produit au panier
   const addToCart = (product) => {
+    // console.log('Adding product to cart:', product);
+    // On vérifie si le produit est déjà dans le panier
     const existingProductIndex = cart.findIndex(item => item.id === product.id);
 
     if (existingProductIndex !== -1) {
@@ -36,6 +39,7 @@ export const CartProvider = ({ children }) => {
       setCart(updatedCart);
       saveCartToLocalStorage(updatedCart);
     }
+    console.log ('update cart:', cart)
   };
 
   // Fonction pour retirer un produit du panier

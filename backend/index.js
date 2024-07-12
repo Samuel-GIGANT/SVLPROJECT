@@ -3,20 +3,24 @@ import { connect } from 'mongoose';
 import cors from 'cors';
 import categoryRoutes from './routes/categoryRoute.js';
 import Product from './models/productModel.js';
+import orderRoutes from './routes/orderRoute.js';
 import User from './models/userModel.js';
 import { hash, compare } from 'bcrypt';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Créer une instance de l'application Express
 const app = express();
 
 // Connexion à la base de données MongoDB
-connect('mongodb://localhost:27017/svl', {
-}).then(() => {
-  console.log('Connexion à MongoDB réussie');
-}).catch((err) => {
-  console.error('Erreur de connexion à MongoDB', err);
-});
-
+connect('mongodb://localhost:27017/svl', {})
+  .then(() => {
+    console.log('Connexion à MongoDB réussie');
+  })
+  .catch((err) => {
+    console.error('Erreur de connexion à MongoDB', err);
+  });
 
 // Utilisation du middleware CORS pour permettre les requêtes cross-origin
 app.use(cors({
@@ -26,21 +30,17 @@ app.use(cors({
 // Middleware pour parser les corps des requêtes en JSON
 app.use(json());
 
-
 // Utilisation des routes d'authentification
 // app.use('/auth', authRoutes);
 
 // Utilisation des routes CRUD pour chaque entité
-// app.use('/users', userRoutes);
-// app.use('/categories', categoryRoutes);
-// app.use('/products', productRoutes);
-// app.use('/orders', orderRoutes);
-// app.use('/orderDetails', orderDetailRoutes);
+app.use('/orders', orderRoutes);
+app.use('/categories', categoryRoutes);
 
 // Route user
 app.get('/users', async (req, res) => {
   try {
-    const users = await User.find(); // Utilisez directement user.find()
+    const users = await User.find();
     console.log(users);
     res.status(200).json(users);
   } catch (error) {
@@ -60,7 +60,7 @@ app.post('/users', async (req, res) => {
 
 app.get('/users/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id); // Utilisez directement user.findById()
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: 'Utilisateur introuvable' });
     }
@@ -72,7 +72,7 @@ app.get('/users/:id', async (req, res) => {
 
 app.put('/users/:id', async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }); // Utilisez directement user.findByIdAndUpdate()
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updatedUser) {
       return res.status(404).json({ message: 'Utilisateur introuvable' });
     }
@@ -84,7 +84,7 @@ app.put('/users/:id', async (req, res) => {
 
 app.delete('/users/:id', async (req, res) => {
   try {
-    const deletedUser = await User.findByIdAndDelete(req.params.id); // Utilisez directement user.findByIdAndDelete()
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
     if (!deletedUser) {
       return res.status(404).json({ message: 'Utilisateur introuvable' });
     }
@@ -94,16 +94,17 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
-//Route product
+// Route product
 app.get('/products', async (req, res) => {
   try {
-    const products = await Product.find(); 
+    const products = await Product.find();
     console.log(products);
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 app.post('/products', async (req, res) => {
   try {
     const newProduct = new Product(req.body);
@@ -113,11 +114,12 @@ app.post('/products', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
 app.get('/products/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(404).json({ message: 'produit introuvable' });
+      return res.status(404).json({ message: 'Produit introuvable' });
     }
     res.status(200).json(product);
   } catch (error) {
@@ -125,19 +127,15 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
-
 // Route register
 app.post('/register', async (req, res) => {
   try {
     const { fullName, email, password, adresse, tel } = req.body;
-    // Vérifier si l'utilisateur existe déjà
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Cet e-mail est déjà utilisé" });
     }
-    // Hacher le mot de passe
     const hashedPassword = await hash(password, 10);
-    // Créer un nouvel utilisateur avec le mot de passe haché
     const newUser = new User({ fullName, email, password: hashedPassword, adresse, tel });
     await newUser.save();
     res.status(201).json(newUser);
@@ -150,29 +148,21 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
-    // Rechercher l'utilisateur dans la base de données par e-mail
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Adresse e-mail ou mot de passe incorrect" });
     }
-    // Comparer le mot de passe envoyé avec le mot de passe haché stocké en base de données
     const isPasswordCorrect = await compare(password, user.password);
     if (isPasswordCorrect) {
-      // Authentification réussie
-      // res.status(200).json({ message: "Connexion réussie" });
-      res.status(200).json({ user });
+      console.log('Mot de passe correct');
+      res.status(200).json({ user, message: "Connexion réussie" });
     } else {
-      // Mot de passe incorrect
       res.status(401).json({ message: "Adresse e-mail ou mot de passe incorrect" });
     }
   } catch (error) {
-    // Erreur de serveur
     res.status(500).json({ message: error.message });
   }
 });
-
-//Route categories
-app.use('/categories', categoryRoutes);
 
 // Port d'écoute du serveur
 const PORT = process.env.PORT || 3001;

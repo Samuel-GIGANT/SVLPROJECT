@@ -1,19 +1,25 @@
 // CheckoutForm.jsx
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 import './checkoutForm.css';
 
-
-
-const CheckoutForm = ({ totalAmount, onPaymentSuccess }) => {
+const CheckoutForm = ({ totalAmount, onPaymentSuccess, isUserLoggedIn }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate(); // Utiliser useNavigate pour la navigation
   const [email, setEmail] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [message, setMessage] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!isUserLoggedIn) {
+      setMessage('Vous devez être connecté pour effectuer un paiement.');
+      navigate('/login'); // Rediriger vers la page de login
+      return;
+    }
 
     if (!stripe || !elements) {
       return;
