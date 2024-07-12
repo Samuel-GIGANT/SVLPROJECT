@@ -16,20 +16,10 @@ import NotFoundPage from "./Pages/Page404";
 import MonCompte from "./Components/Footer/MonCompte";
 import { CartProvider } from "./Components/Stripe/CartContext";
 import StripeContainer from "./Components/Stripe/StripeContainer";
-import LegalMentions from "./Pages/RGPD/LegalMentions"; 
+import LegalMentions from "./Pages/RGPD/LegalMentions";
 
 function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const userLoggedIn = checkIfUserIsLoggedIn();
-    setIsUserLoggedIn(userLoggedIn);
-  }, []);
-
-  const checkIfUserIsLoggedIn = () => {
-    const token = localStorage.getItem("authToken");
-    return !!token; // Retourne true si le token est présent, sinon false
-  };
+  const isUserLogged = JSON.parse(localStorage.getItem("isUserLogged"));
 
   return (
     <CartProvider>
@@ -44,19 +34,21 @@ function App() {
           <Route path="/light" element={<Light />} />
           <Route path="/monCompte" element={<MonCompte />} />
           <Route path="/mentions-legales" element={<LegalMentions />} />
-          <Route path="/login" element={<LoginPage setIsUserLoggedIn={setIsUserLoggedIn} />} />
+          <Route
+            path="/login"
+            element={isUserLogged ? <Navigate to="/" /> : <LoginPage />} />
           <Route path="/register" element={<RegisterPages />} />
           <Route path="/cart" element={<Cart />} />
           <Route
             path="/dashboard"
-            element={isUserLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+            element={isUserLogged ? <Dashboard /> : <Navigate to="/login" />}
           />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/redirect" element={<Navigate to="/" />} />
           <Route
             path="/checkout"
             element={
-              isUserLoggedIn ? (
+              isUserLogged ? (
                 <StripeContainer
                   totalAmount={100}
                   onPaymentSuccess={() => console.log("Payment Success")}

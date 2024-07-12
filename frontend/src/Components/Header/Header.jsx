@@ -10,7 +10,7 @@ import Modal from '../Modal/Modal';
 import './header.css';
 
 const Header = () => {
-  const { getNumberProduct } = useCart(); 
+  const { getNumberProduct } = useCart();
   const [userNameConnected, setUserNameConnected] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -18,8 +18,8 @@ const Header = () => {
   const [showLinks, setShowLinks] = useState(false);
   const navigate = useNavigate();
 
+  const isUserLogged = JSON.parse(localStorage.getItem("isUserLogged"));
   useEffect(() => {
-    const isUserLogged = JSON.parse(localStorage.getItem("isUserLogged"));
     const userInfo = JSON.parse(localStorage.getItem('userConnected'));
     if (isUserLogged && userInfo) {
       setIsConnected(true);
@@ -30,10 +30,10 @@ const Header = () => {
       setUserNameConnected('');
       setUserInfo(null);
     }
-  }, []);
+  }, [isConnected, isUserLogged]);
 
   const handleLogout = () => {
-    localStorage.removeItem("isUserLogged");
+    localStorage.setItem("isUserLogged", "false");
     localStorage.removeItem('userConnected');
     setIsConnected(false);
     setUserNameConnected('');
@@ -72,7 +72,7 @@ const Header = () => {
           <div className="header_login">
             <div className="header_icons_login">
               {isConnected ? (
-                <span onClick={openModal}>{userNameConnected}</span>
+                <button onClick={openModal} className="header_user-name">Bonjour {userNameConnected}</button>
               ) : (
                 <Link to="/login"><BiSolidUser /></Link>
               )}
