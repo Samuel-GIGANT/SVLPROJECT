@@ -33,21 +33,21 @@ const userSchema = new Schema({
 });
 
 // Middleware pré-enregistrement pour hacher le mot de passe de l'utilisateur avant de le sauvegarder dans la base de données
-userSchema.pre('save', async function (next) {
-  // Si le mot de passe n'a pas été modifié, passer au middleware suivant
-  if (!this.isModified('password')) {
-    return next();
-  }
-  try {
-    // Hachage du mot de passe avec bcrypt, le facteur de coût est 10
-    const hashedPassword = await hash(this.password, 10);
-    // Remplacement du mot de passe par le mot de passe haché
-    this.password = hashedPassword;
-    next();  // Passer au middleware suivant
-  } catch (error) {
-    return next(error);  // Passer l'erreur au middleware suivant
-  }
-});
+// userSchema.pre('save', async function (next) {
+//   // Si le mot de passe n'a pas été modifié, passer au middleware suivant
+//   if (!this.isModified('password')) {
+//     return next();
+//   }
+//   try {
+//     // Hachage du mot de passe avec bcrypt, le facteur de coût est 10
+//     const hashedPassword = await hash(this.password, 10);
+//     // Remplacement du mot de passe par le mot de passe haché
+//     this.password = hashedPassword;
+//     next();  // Passer au middleware suivant
+//   } catch (error) {
+//     return next(error);  // Passer l'erreur au middleware suivant
+//   }
+// });
 
 // Création du modèle 'User' basé sur le schéma 'userSchema'
 const User = model("users", userSchema);

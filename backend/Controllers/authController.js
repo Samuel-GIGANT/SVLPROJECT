@@ -5,8 +5,10 @@ import { compare } from 'bcrypt';
 const registerUser = async (req, res) => {
     try {
         // Créez un nouvel utilisateur en utilisant les données de la requête
-        const newUser = new User(req.body); 
+        const newUser = new User(req.body);
         // Enregistrez le nouvel utilisateur dans la base de données MongoDB
+        console.log('register authcontroller')
+
         await newUser.save();
         // Répondez avec le nouvel utilisateur créé
         res.status(201).json(newUser);
@@ -29,6 +31,7 @@ const loginUser = async (req, res) => {
         }
         // Vérifiez si le mot de passe est correct en le comparant avec le mot de passe haché de l'utilisateur
         const isPasswordCorrect = await compare(password, user.password);
+        console.log('login authcontroller')
         if (isPasswordCorrect) {
             // Mot de passe correct, connectez l'utilisateur
             res.status(200).json({ user, message: "Connexion réussie" });
