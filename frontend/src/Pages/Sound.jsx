@@ -1,71 +1,73 @@
 import React, { useEffect, useState } from 'react';
+// import Categories from './Categories';
 import './sound.css';
 import { useCart } from '../Components/Stripe/CartContext';
 
 const Product = () => {
+  const [categories, setCategories] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const { addToCart } = useCart();
 
-  // Définir imageArray avec les images correspondant à chaque ID de produit
-  const imageArray = [
-    {
-      // id: '667c42c79389e8274682d920',
-      images: [
-        { src: './rodeVideoMicGo.jpg', alt: 'Product 1 Image 1' }
-      ]
-    },
-    {
-      id: '667c4906b569fc47e851dc36',
-      images: [
-        { src: './microRode2.jpg', alt: 'Product 2 Image 1' },
-        { src: './microRode1.jpg', alt: 'Product 2 Image 2' }
-      ]
-    }
-  ];
-
   useEffect(() => {
-    // Récupérer les produits avec leurs IDs lors du montage du composant
-    const productIds = ['667c42c79389e8274682d920', '667c4906b569fc47e851dc36'];
-    fetchProductsByIds(productIds);
-  }, []);
-
-  const fetchProductsByIds = async (ids) => {
-    try {
-      const promises = ids.map(async id => {
-        const res = await fetch(`http://localhost:3001/products/${id}`);
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('http://localhost:3001/products');
         if (!res.ok) {
           throw new Error('Failed to fetch product');
         }
         const data = await res.json();
-        return data;
-      });
-      const products = await Promise.all(promises);
-      setSelectedProducts(products);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des produits :', error);
-    }
-  };
+        setSelectedProducts(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des produits :', error);
+      }
+    };
+    fetchProducts()
+  }, [])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/categories/`);
+        if (!res.ok) {
+          throw new Error('Failed to fetch product');
+        }
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des produits :', error);
+      }
+    };
+    fetchCategories()
+  }, [])
 
   const handleAddToCart = (product) => {
     addToCart(product);
     alert("Le produit a été ajouté au panier !");
   };
 
+  const arrayofProductsWithCategoryNames = selectedProducts.map((product) => {
+    const category = categories.find(category => category._id === product.category);
+    return category ? { ...product, category: category.name } : product;
+  });
+
+
+  console.log('cat: ', categories)
+  console.log('selectedProducts: ', selectedProducts)
+  console.log('arrayofProductsWithCategoryNames: ', arrayofProductsWithCategoryNames)
+
+
   return (
     <div>
-      {selectedProducts.length > 0 ? (
-        selectedProducts.map((product, index) => {
-          // Trouver l'objet correspondant dans imageArray
-          const productImages = imageArray.find(imageObj => imageObj.id === product.id);
-
+      {arrayofProductsWithCategoryNames.length > 0 ? (
+        arrayofProductsWithCategoryNames.map((product, index) => {
           return (
             <div key={index} className="product-container">
               <h2 className="product-name">{product.name}</h2>
               <div className="product-details">
                 <div className="product-details-img">
-                  {productImages && productImages.images.map((image, imageIndex) => (
-                    <img key={imageIndex} className="product-image" src={image.src} alt={image.alt} />
-                  ))}
+                  {product.imageURL.map((image) =>
+                    <img key={`img-${product.name}`} className="product-image" src={image} alt="" />
+                  )}
                 </div>
                 <p className="product-description"><b>Description:</b><br /> {product.description}</p>
                 <hr />
@@ -77,7 +79,6 @@ const Product = () => {
                 <div className="btn">
                   <button onClick={() => handleAddToCart(product)}>Ajouter au panier</button>
                 </div>
-                <div className="sound-alert">Produit ajouté !</div>
               </div>
             </div>
           );

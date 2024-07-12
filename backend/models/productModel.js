@@ -15,6 +15,11 @@ const productSchema = new mongoose.Schema({
   // Marque du produit
   marque: String,  // Type chaîne de caractères, champ non obligatoire
 
+  // images des produits
+  imageURL: {
+    type: [String],  // Type tableau de chaînes de caractères, champs non obligatoire
+  },
+
   // Prix du produit
   price: {
     type: String,  // Type chaîne de caractères (devrait idéalement être Number pour des prix)
