@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Home from "./Pages/Home";
@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/categories" element={<Categories />} />
-          <Route path="/product" element={<Product />} />
+          <Route path="/dashboard/products" element={<Product />} />
           <Route path="/sound" element={<Sound />} />
           <Route path="/video" element={<Video />} />
           <Route path="/light" element={<Light />} />

@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import './product.css';
 
-const Product = ({ products, setProducts }) => {
+const Product = () => {
+  const [products, setProducts] = useState([])
   const [newProduct, setNewProduct] = useState({
     name: '',
     description: '',
@@ -17,23 +18,22 @@ const Product = ({ products, setProducts }) => {
   const [message, setMessage] = useState(null);
 
   // Fetch des produits existants au montage du composant
-  const fetchExistingProducts = useCallback(async () => {
-    try {
-      const response = await fetch('http://localhost:3001/products');
-      if (response.ok) {
-        const existingProducts = await response.json();
-        setProducts(existingProducts);
-      } else {
-        console.error('Failed to fetch existing products');
-      }
-    } catch (error) {
-      console.error('Error fetching existing products:', error);
-    }
-  }, [setProducts]);
-
   useEffect(() => {
-    fetchExistingProducts();
-  }, [fetchExistingProducts]);
+    const fetchExistingProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/products');
+        if (response.ok) {
+          const existingProducts = await response.json();
+          setProducts(existingProducts);
+        } else {
+          console.error('Failed to fetch existing products');
+        }
+      } catch (error) {
+        console.error('Error fetching existing products:', error);
+      }
+    };
+    fetchExistingProducts()
+  }, [])
 
   // Fetch des catégories au montage du composant
   useEffect(() => {
@@ -152,7 +152,7 @@ const Product = ({ products, setProducts }) => {
   //     const response = await fetch(`http://localhost:3001/products/${productId}`, {
   //       method: 'DELETE',
   //     });
-  
+
   //     if (response.ok) {
   //       const updatedProducts = products.filter(product => product._id !== productId);
   //       setProducts(updatedProducts);
@@ -167,7 +167,7 @@ const Product = ({ products, setProducts }) => {
   //     setMessage(`Erreur lors de la suppression du produit: ${error.message}`);
   //   }
   // };
-  
+
 
   // Suppression d'un produit
   const handleDelete = async (productId) => {
