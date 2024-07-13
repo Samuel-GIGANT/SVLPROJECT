@@ -1,58 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import './sound.css';
-import { useCart } from '../Components/Stripe/CartContext';
+import './sound.css'; // Importation du fichier CSS pour styliser les produits
+import { useCart } from '../Components/Stripe/CartContext'; // Importation du contexte du panier
 
 const Product = () => {
-  const [categories, setCategories] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const { addToCart } = useCart();
+  const [categories, setCategories] = useState([]); // État pour stocker les catégories
+  const [selectedProducts, setSelectedProducts] = useState([]); // État pour stocker les produits sélectionnés
+  const { addToCart } = useCart(); // Utilisation du contexte du panier pour ajouter des produits au panier
 
+  // useEffect pour récupérer les produits lors du montage du composant
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:3001/products');
+        const res = await fetch('http://localhost:3001/products'); // Appel à l'API pour récupérer les produits
         if (!res.ok) {
-          throw new Error('Failed to fetch product');
+          throw new Error('Failed to fetch product'); // Gestion des erreurs de l'appel API
         }
-        const data = await res.json();
-        setSelectedProducts(data);
+        const data = await res.json(); // Conversion de la réponse en JSON
+        setSelectedProducts(data); // Mise à jour de l'état des produits
       } catch (error) {
-        console.error('Erreur lors de la récupération des produits :', error);
+        console.error('Erreur lors de la récupération des produits :', error); // Affichage de l'erreur en console
       }
     };
     fetchProducts();
-  }, []);
+  }, []); // Tableau de dépendances vide pour exécuter une seule fois lors du montage
 
+  // useEffect pour récupérer les catégories lors du montage du composant
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch(`http://localhost:3001/categories/`);
+        const res = await fetch(`http://localhost:3001/categories/`); // Appel à l'API pour récupérer les catégories
         if (!res.ok) {
-          throw new Error('Failed to fetch categories');
+          throw new Error('Failed to fetch categories'); // Gestion des erreurs de l'appel API
         }
-        const data = await res.json();
-        setCategories(data);
+        const data = await res.json(); // Conversion de la réponse en JSON
+        setCategories(data); // Mise à jour de l'état des catégories
       } catch (error) {
-        console.error('Erreur lors de la récupération des catégories :', error);
+        console.error('Erreur lors de la récupération des catégories :', error); // Affichage de l'erreur en console
       }
     };
     fetchCategories();
-  }, []);
+  }, []); // Tableau de dépendances vide pour exécuter une seule fois lors du montage
 
+  // Fonction pour ajouter un produit au panier
   const handleAddToCart = (product) => {
-    addToCart(product);
-    alert("Le produit a été ajouté au panier !");
+    addToCart(product); // Ajout du produit au panier via le contexte
+    alert("Le produit a été ajouté au panier !"); // Alerte pour informer l'utilisateur
   };
 
+  // Fonction pour obtenir le nom de la catégorie par ID
   const getCategoryNameById = (id) => {
-    const category = categories.find(category => category._id === id);
-    return category ? category.name : 'unknow';
+    const category = categories.find(category => category._id === id); // Recherche de la catégorie par ID
+    return category ? category.name : 'unknown'; // Retourne le nom de la catégorie ou 'unknown' si non trouvé
   };
 
+  // Filtrage des produits pour obtenir uniquement ceux de la catégorie 'sound'
   const filteredProducts = selectedProducts
-    .map(product => ({ ...product, categoryName: getCategoryNameById(product.category) }))
-    .filter(product => product.categoryName.toLowerCase() === 'sound');
+    .map(product => ({ ...product, categoryName: getCategoryNameById(product.category) })) // Ajout du nom de la catégorie à chaque produit
+    .filter(product => product.categoryName.toLowerCase() === 'sound'); // Filtrage des produits de la catégorie 'sound'
 
+  // Logs pour le debug
   console.log('cat: ', categories);
   console.log('selectedProducts: ', selectedProducts);
   console.log('filteredProducts: ', filteredProducts);
@@ -60,6 +66,7 @@ const Product = () => {
   return (
     <div>
       {filteredProducts.length > 0 ? (
+        // Affichage des produits filtrés
         filteredProducts.map((product, index) => {
           return (
             <div key={index} className="product-container">
@@ -85,6 +92,7 @@ const Product = () => {
           );
         })
       ) : (
+        // Message de chargement si aucun produit filtré n'est trouvé
         <p className="loading-message">Chargement des produits...</p>
       )}
     </div>

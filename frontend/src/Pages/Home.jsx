@@ -26,10 +26,10 @@ function Home() {
 
 
       <section >
-        <Categories />
+      <CarrouselLogo />
       </section>
       <section >
-        <CarrouselLogo />
+      <Categories />
       </section>
     </div>
   );

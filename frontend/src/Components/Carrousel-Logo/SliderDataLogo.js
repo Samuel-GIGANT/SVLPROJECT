@@ -5,6 +5,5 @@ export const SliderData = [
     "sony.png", 
     "Panasonic-1.png", 
     "Nanlite.png", 
-    "Blackmagicdesign.png", 
-    "Rode-Microphones-1141393749.png"
+    "Blackmagicdesign.png"
 ]

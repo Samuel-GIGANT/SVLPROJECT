@@ -27,21 +27,28 @@ const Cart = () => {
     // console.log("L'historique des commandes a été mis à jour.");
 
   };
-  
+
 
   return (
+
     <div className='cart'>
+
       <h2>Votre panier</h2>
       <ul>
         {cart.map((product, index) => (
           <li key={index}>
-            <img src={product.image} alt={product.name} />
-            <div>
+            <div className='cart-infos'>
               <h3>{product.name}</h3>
               <p>Description: {product.description}</p>
               <p>Catégories: {product.category}</p>
               <p>Prix : {product.price}</p>
               <p>Quantité : {product.quantity}</p>
+              {/* <img src={product.imageURL} alt={product.name} /> */}
+              <div className="cart-details-img">
+                  {product.imageURL.map((image, idx) =>
+                    <img key={`img-${product.name}-${idx}`} className="cart-image" src={image} alt="" />
+                  )}
+                </div>
               <div className="cart-quantity-controls">
                 <button onClick={() => changeQuantity(product, product.quantity - 1)}>-</button>
                 <button onClick={() => changeQuantity(product, product.quantity + 1)}>+</button>
