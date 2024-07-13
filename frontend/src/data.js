@@ -5,6 +5,7 @@ const data = [
     name: 'RodeVideoMicGo',
     description: 'Le VideoMic GO est un microphone sur caméra de haute qualité permettant de capturer des sons clairs et directionnels pour le vlogging et la réalisation de films. Extrêmement léger et facile à utiliser, c’est le moyen idéal d’améliorer considérablement le son de votre caméra et de faire passer votre contenu au niveau supérieur.',
     marque: 'Rode',
+    imageURL: ["rodeVideoMicGo.jpg"],
     price: '79',
     quantity: 10,
     category: ('666711cc7c9461335a6aa203'),
