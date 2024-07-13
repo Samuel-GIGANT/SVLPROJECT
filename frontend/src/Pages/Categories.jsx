@@ -4,23 +4,27 @@ import './categories.css';
 
 const categories = [
   {
+    name: "Sound",
     href: "./sound",
     src: "./audio.jpg",
     alt: "un microphone",
     text: "Explore"
   },
   {
+    name: "Video",
+    href: "./video",
+    src: "./video.jpg",
+    alt: "une camera",
+    text: "Explore"
+  },
+  {
+    name: "Light",
     href: "./light",
     src: "./light.jpg",
     alt: "une lumiere de cinema",
     text: "Explore"
   },
-  {
-    href: "./video",
-    src: "./video.jpg",
-    alt: "une camera",
-    text: "Explore"
-  }
+  
 ];
 
 const Categories = () => {
@@ -35,7 +39,10 @@ const Categories = () => {
             <div key={index} className="categorie_img">
               <Link to={category.href}>
                 <img src={category.src} alt={category.alt} />
-                <span className="categorie_img_text">{category.text}</span>
+                <div className="categorie_overlay">
+                  <span className="categorie_name">{category.name}</span>
+                  <span className="categorie_img_text">{category.text}</span>
+                </div>
               </Link>
             </div>
           ))}

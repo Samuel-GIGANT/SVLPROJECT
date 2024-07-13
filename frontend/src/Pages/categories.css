@@ -1,10 +1,11 @@
-.categorie h2{
+.categorie h2 {
   text-align: center;
   font-size: 4rem;
   font-weight: 700;
   background-color: var(--light--color);
-  padding:20px;
+  padding: 20px;
 }
+
 .categorie_gallery {
   display: flex;
   justify-content: space-evenly;
@@ -22,11 +23,32 @@
   width: 100%; /* Utilise la largeur complète du conteneur */
 }
 
-.categorie_img_text {
+.categorie_overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.categorie_img:hover .categorie_overlay {
+  opacity: 1;
+}
+
+.categorie_name {
+  font-size: 1.5em;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.categorie_img_text {
   background-color: rgba(255, 255, 255, 0.5);
   padding: 10px 30px;
   border-radius: 5px;
@@ -36,18 +58,18 @@
 
 .categorie_img_text:after {
   content: '>';
-  margin-left: 10px; /* Ajuste la marge */
+  margin-left: 10px; 
 }
 
 .categorie_infos {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px 0; /* Réduit la marge verticale */
+  margin: 30px 0; 
 }
 
 @media screen and (max-width:768px){
-  .categorie_gallery{
+  .categorie_gallery {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

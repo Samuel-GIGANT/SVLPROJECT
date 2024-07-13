@@ -2,6 +2,7 @@ import React from "react";
 import { CiFacebook } from "react-icons/ci";
 import { FaInstagram } from "react-icons/fa";
 import Categories from "./Categories";
+import CarrouselLogo from '../Components/Carrousel-Logo/CarrouselLogo';
 import './home.css';
 
 
@@ -26,6 +27,9 @@ function Home() {
 
       <section >
         <Categories />
+      </section>
+      <section >
+        <CarrouselLogo />
       </section>
     </div>
   );

@@ -1,0 +1,43 @@
+/* ImageCarrousel.css */
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.left-arrow, .right-arrow {
+  position: absolute;
+  top: 50%;
+  font-size: 3rem;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
+.left-arrow {
+  left: 32px;
+}
+
+.right-arrow {
+  right: 32px;
+}
+
+.slide {
+  opacity: 0;
+  transition-duration: 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transition-duration: 1s;
+  transform: scale(1.08);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
