@@ -31,6 +31,7 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate
+import { PaymentElement } from '@stripe/react-stripe-js';
 import './checkoutForm.css';
 
 const CheckoutForm = ({ totalAmount, onPaymentSuccess, isUserLoggedIn }) => {
@@ -90,10 +91,31 @@ const CheckoutForm = ({ totalAmount, onPaymentSuccess, isUserLoggedIn }) => {
       setMessage('Paiement réussi !');
       setIsProcessing(false);
     }
+
+    const result = await stripe.confirmPayment({
+      //`Elements` instance that was used to create the Payment Element
+      elements,
+      confirmParams: {
+        return_url: "https://example.com/order/123/complete",
+      },
+    });
+
+    if (result.error) {
+      // Show error to your customer (for example, payment details incomplete)
+      console.log(result.error.message);
+    } else {
+      // Your customer will be redirected to your `return_url`. For some payment
+      // methods like iDEAL, your customer will be redirected to an intermediate
+      // site first to authorize the payment, then redirected to the `return_url`.
+      console.log('good')
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="checkout-form">
+
+      <p>Veuillez compléter vos informations de paiement</p>
+
       <label>
         Email
         <input
@@ -103,17 +125,9 @@ const CheckoutForm = ({ totalAmount, onPaymentSuccess, isUserLoggedIn }) => {
           required
         />
       </label>
-      <label>
-        Détails de la carte
-        <CardElement
-          options={{
-            hidePostalCode: true // pour ne pas avoir le code postale avec la carte 
-          }}
-        />
-        
 
+      <PaymentElement />
 
-      </label>
       <button type="submit" disabled={!stripe || isProcessing}>
         {isProcessing ? 'Traitement...' : 'Payer'}
       </button>

@@ -49,10 +49,7 @@ function App() {
             path="/checkout"
             element={
               isUserLogged ? (
-                <StripeContainer
-                  totalAmount={100}
-                  onPaymentSuccess={() => console.log("Payment Success")}
-                />
+                <StripeContainer />
               ) : (
                 <Navigate to="/login" />
               )

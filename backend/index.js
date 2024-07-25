@@ -6,7 +6,8 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import categoryRoutes from './routes/categoryRoute.js';
 import productRoutes from './routes/productRoute.js';
-import dotenv from 'dotenv';
+import stripeRoute from './routes/stripeRoute.js';
+import dotenv from 'dotenv';    
 import Stripe from 'stripe';
 
 // Chargement des variables d'environnement depuis un fichier .env
@@ -37,6 +38,7 @@ app.use('/users', userRoutes);
 app.use('/register', authRoutes);
 app.use('/login', authRoutes);
 app.use('/categories', categoryRoutes);
+app.use('/create-payment-intent', stripeRoute);
 
 
 // Port d'écoute du serveur

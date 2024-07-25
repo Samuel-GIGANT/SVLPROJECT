@@ -2,7 +2,6 @@ import Product from '../models/productModel.js';
 
 // Fonction pour créer un nouveau produit
 export const createProduct = async (req, res) => {
-    console.log('coucou')
     try {
         const newProduct = new Product(req.body);
         await newProduct.save();

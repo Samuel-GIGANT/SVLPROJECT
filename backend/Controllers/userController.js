@@ -81,7 +81,6 @@ export const deleteUser = async (req, res) => {
     // Envoi d'une réponse avec le statut 200 (OK) et un message de succès
     res.status(200).json({ message: 'Utilisateur supprimé avec succès' });
   } catch (error) {
-    console.log("coucou")
     // En cas d'erreur, envoi d'une réponse avec le statut 500 (erreur serveur) et un message d'erreur
     res.status(500).json({ message: error.message });
   }

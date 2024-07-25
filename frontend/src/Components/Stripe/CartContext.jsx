@@ -76,7 +76,10 @@ export const CartProvider = ({ children }) => {
         }
       }
     });
-    return totalPrice.toFixed(2);
+
+    const totalPriceNumber = Number(totalPrice.toFixed(2));
+
+    return totalPriceNumber;
   };
 
   // Fonction pour obtenir le nombre total de produits dans le panier
