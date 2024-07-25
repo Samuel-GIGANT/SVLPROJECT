@@ -39,10 +39,11 @@
 .product-description-end{
   display: flex;
 }
-.product-image {
-  max-width: 200px; /* Largeur maximale pour l'image */
-  height: auto; /* Hauteur automatique pour maintenir le ratio */
-  transition: max-width 0.3s ease-in-out;
+.product-image:hover{
+  transform: scale(1.1);
+  transition: 0.4s;
+  opacity: 0.7;
+  
 }
 .product-image:hover{
   max-width: 300px;

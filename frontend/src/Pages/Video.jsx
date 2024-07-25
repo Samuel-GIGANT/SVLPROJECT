@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './sound.css';
+import './video.css';
 import { useCart } from '../Components/Stripe/CartContext';
 
 const Product = () => {
@@ -53,9 +53,6 @@ const Product = () => {
     .map(product => ({ ...product, categoryName: getCategoryNameById(product.category) }))
     .filter(product => product.categoryName.toLowerCase() === 'video');
 
-  console.log('cat: ', categories);
-  console.log('selectedProducts: ', selectedProducts);
-  console.log('filteredProducts: ', filteredProducts);
 
   return (
     <div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Sidebar from './Sidebar.jsx';
 import Product from '../../Pages/Product';
-import Order from '../Dashboard/Order.jsx'
+import Order from '../Dashboard/Order.jsx';
 import User from '../../Pages/User';
 import './dashboard.css';
 
@@ -15,42 +15,42 @@ const Dashboard = () => {
   // useEffect(() => {
   //   const fetchOrders = async () => {
   //     try {
-  //       const response = await fetch('/api/orders');
+  //       const response = await fetch(`${API_BASE_URL}/orders`);
   //       if (!response.ok) {
-  //         throw new Error('Failed to fetch orders');
+  //         throw new Error('Échec de la récupération des commandes');
   //       }
   //       const data = await response.json();
   //       setOrders(data);
   //     } catch (error) {
-  //       console.error('Error fetching orders:', error);
+  //       console.error('Erreur lors de la récupération des commandes :', error);
   //     }
-  //     fetchOrders();
   //   };
 
   //   const fetchUsers = async () => {
   //     try {
-  //       const response = await fetch('/api/users');
+  //       const response = await fetch(`${API_BASE_URL}/users`);
   //       if (!response.ok) {
-  //         throw new Error('Failed to fetch users');
+  //         throw new Error('Échec de la récupération des utilisateurs');
   //       }
   //       const data = await response.json();
   //       setUsers(data);
   //     } catch (error) {
-  //       console.error('Error fetching users:', error);
+  //       console.error('Erreur lors de la récupération des utilisateurs :', error);
   //     }
   //   };
+
+  //   fetchOrders();
   //   fetchUsers();
   // }, []);
 
   return (
-
     <div className="dashboard">
       <Sidebar />
       <div className="dashboard-content">
         <Routes>
           <Route path="products" element={<Product />} />
-          <Route path="orders" element={<Order order={orders} setOrders={setOrders} />} />
-          <Route path="/dashboard/users" element={<User users={users} setUsers={setUsers} />} />
+          <Route path="orders" element={<Order orders={orders} setOrders={setOrders} />} />
+          <Route path="users" element={<User users={users} setUsers={setUsers} />} />
         </Routes>
       </div>
     </div>

@@ -1,9 +1,13 @@
+// Importer les hooks et fonctions nécessaires de React et React Router
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+// Importer le service d'inscription
 import { registration } from '../../Services/AuthServices';
+// Importer le fichier CSS pour le style du formulaire d'inscription
 import './registrationForm.css';
 
 function RegistrationForm() {
+  // Définir l'état initial des données utilisateur
   const [userData, setUserData] = useState({
     fullName: '',
     email: '',
@@ -11,10 +15,15 @@ function RegistrationForm() {
     adresse: '',
     tel: ''
   });
+
+  // État pour stocker les messages d'erreur ou de succès
   const [message, setMessage] = useState(null);
+  // État pour gérer l'affichage du chargement pendant la soumission du formulaire
   const [isLoading, setIsLoading] = useState(false);
+  // Hook pour la navigation
   const navigate = useNavigate();
 
+  // Fonction pour gérer les changements dans les champs de formulaire
   const handleChange = (e) => {
     setUserData({
       ...userData,
@@ -22,19 +31,21 @@ function RegistrationForm() {
     });
   };
 
+  // Fonction pour gérer la soumission du formulaire
   const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    // Vérification des champs avant l'envoi du formulaire
+    e.preventDefault(); // Empêcher le rechargement de la page à la soumission du formulaire
+
+    // Vérifier que tous les champs sont remplis
     if (!userData.fullName || !userData.email || !userData.password || !userData.adresse || !userData.tel) {
       setMessage('Tous les champs sont requis.');
       return;
     }
 
-    setIsLoading(true);
-    setMessage(null);
-  
+    setIsLoading(true); // Activer l'état de chargement
+    setMessage(null); // Réinitialiser les messages
+
     try {
+      // Appeler la fonction d'inscription avec les données utilisateur
       const response = await registration(userData);
       console.log('User registered successfully:', response);
 
@@ -51,19 +62,19 @@ function RegistrationForm() {
       localStorage.setItem('userConnected', JSON.stringify(userData));
       localStorage.setItem("isUserLogged", "true");
 
-      // Redirection et message de succès
+      // Rediriger l'utilisateur et afficher un message de succès
       setMessage('Vous êtes inscrit avec succès.');
       navigate('/');
     } catch (error) {
       console.error('Registration error:', error);
       setMessage(error.message || 'Une erreur est survenue lors de l\'inscription.');
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Désactiver l'état de chargement
     }
   };
 
   return (
-    <div>
+    <div className='Register'>
       <h2>Veuillez vous enregistrer, merci !</h2>
       {message && <p className={`message ${message.includes('succès') ? 'success' : 'error'}`}>{message}</p>}
       <form onSubmit={handleSubmit} className="form-container">

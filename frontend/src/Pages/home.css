@@ -4,8 +4,16 @@
   width: 100%;
   height: 500px;
   position: relative;
-  background-size: fill ;
+  background-size: fill;
   background-repeat: no-repeat;
+  /* PARALLAX EFFECT LIGHT Full height */
+  height: 100%;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   /* border: 2px solid red; */
 }
 
@@ -16,7 +24,6 @@
   font-size: 5rem;
   margin: 50px auto;
   padding: 40px;
-  
 }
 
 .hero span {
@@ -25,45 +32,30 @@
 
 .hero p {
   width: 80%;
-  margin:0 auto;
+  margin: 0 auto;
   text-align: left;
   font-size: 2rem;
   color: #CCC;
-  /* background: linear-gradient(to right, hsl(0, 0%, 93%) 0, hsl(0, 5%, 70%) 10%, hsl(0, 1%, 48%) 20%);
-  background-clip: text ;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 3s infinite linear;
-  border: 1px solid green;
-}*/
-/* @keyframes shine {
-  0% {
-    background-position: 0;
-  }
-  60% {
-    background-position: 600px;
-  }
-  100% {
-    background-position: 600px;
-  }
-} */
+  /* border: 1px solid green; */
 }
-.hero-reseaux{
+.hero-reseaux {
   font-size: 2rem;
- display: flex;
- justify-content: center;
- align-items: center;
- color: #CCC;
- padding: 40px;
- gap: 50px;
- cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #CCC;
+  padding: 40px;
+  gap: 50px;
+  cursor: pointer;
 }
-.hero-reseaux:hover{
+
+.hero-reseaux:hover {
   text-transform: uppercase;
   transition: 0.4s ease-in-out;
 }
-@media screen and (max-width:768px){
-  .hero p{
+
+@media screen and (max-width:768px) {
+  .hero p {
     display: flex;
     flex-wrap: wrap;
     text-align: center;

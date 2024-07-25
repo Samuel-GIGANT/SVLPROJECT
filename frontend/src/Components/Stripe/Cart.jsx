@@ -20,11 +20,9 @@ const Cart = () => {
     // Rediriger vers une page de confirmation
     navigate('/confirmation');
 
-    // Simuler l'envoi d'un e-mail de confirmation (vous pouvez remplacer cela par un appel API réel)
-    // console.log("E-mail de confirmation envoyé à l'utilisateur.");
+    // Simuler l'envoi d'un e-mail de confirmation.
 
-    // Mettre à jour les statistiques ou l'historique des commandes (à implémenter selon votre logique)
-    // console.log("L'historique des commandes a été mis à jour.");
+    // Mettre à jour l'historique des commandes 
 
   };
 
@@ -39,16 +37,16 @@ const Cart = () => {
           <li key={index}>
             <div className='cart-infos'>
               <h3>{product.name}</h3>
-              <p>Description: {product.description}</p>
-              <p>Catégories: {product.category}</p>
+              {/* <p>Description: {product.description}</p> */}
+              <p>Catégories: {product.categoryName}</p>
               <p>Prix : {product.price}</p>
               <p>Quantité : {product.quantity}</p>
               {/* <img src={product.imageURL} alt={product.name} /> */}
               <div className="cart-details-img">
-                  {product.imageURL.map((image, idx) =>
-                    <img key={`img-${product.name}-${idx}`} className="cart-image" src={image} alt="" />
-                  )}
-                </div>
+                {product.imageURL.map((image, idx) =>
+                  <img key={`img-${product.name}-${idx}`} className="cart-image" src={image} alt="" />
+                )}
+              </div>
               <div className="cart-quantity-controls">
                 <button onClick={() => changeQuantity(product, product.quantity - 1)}>-</button>
                 <button onClick={() => changeQuantity(product, product.quantity + 1)}>+</button>

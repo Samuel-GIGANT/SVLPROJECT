@@ -24,15 +24,13 @@ const categories = [
     alt: "une lumiere de cinema",
     text: "Explore"
   },
-  
+
 ];
 
 const Categories = () => {
   return (
-    <>
       <div className="categorie">
         <h2>CATEGORIES</h2>
-      </div>
       <main>
         <div className="categorie_gallery">
           {categories.map((category, index) => (
@@ -50,13 +48,12 @@ const Categories = () => {
         <br />
         <div className="categorie_infos">
           <p><strong>SVL</strong> Sound Video Light<br />
-          Retrouvez nos catégories et nos produits. <br />
-          Trouvez tout ce qu'il vous faut pour débuter votre projet.
+            Retrouvez nos catégories et nos produits. <br />
+            Trouvez tout ce qu'il vous faut pour débuter votre projet.
           </p>
         </div>
       </main>
-    </>
+      </div>
   );
 };
-
 export default Categories;

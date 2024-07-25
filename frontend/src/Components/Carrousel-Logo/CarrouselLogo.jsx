@@ -41,7 +41,7 @@ const ImageCarousel = () => {
         <div className={index === current ? 'slide active' : 'slide'} key={index}>
           {/* Affiche l'image si c'est l'image actuelle */}
           {index === current && (
-            <img src={image} alt={`Slide ${index}`} className="image" />
+            <img src={image.img} alt={image.alt} className="image" />
           )}
         </div>
       ))}

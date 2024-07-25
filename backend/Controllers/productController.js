@@ -2,11 +2,13 @@ import Product from '../models/productModel.js';
 
 // Fonction pour créer un nouveau produit
 export const createProduct = async (req, res) => {
+    console.log('coucou')
     try {
         const newProduct = new Product(req.body);
         await newProduct.save();
         res.status(201).json(newProduct);
     } catch (error) {
+        console.log('failed')
         res.status(400).json({ message: error.message });
     }
 };
@@ -66,4 +68,4 @@ export default {
     getProductById,
     updateProduct,
     deleteProduct
-    };
+};

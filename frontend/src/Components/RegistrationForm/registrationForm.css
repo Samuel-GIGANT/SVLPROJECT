@@ -6,12 +6,12 @@
   --button-color: #54646F;
 }
 
-h2 {
+.Register h2 {
   text-align: center;
   margin-top: 40px;
 }
 
-.form-container {
+ .Register .form-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Deux colonnes avec largeur égale */
   gap: 20px; /* Espacement entre les colonnes et les lignes */
@@ -21,7 +21,7 @@ h2 {
   overflow-y: auto; /* Défilement vertical automatique lorsque le contenu dépasse la hauteur de l'écran */
 }
 
-input {
+.Register input {
   border: none;
   border-bottom: 1px solid #ccc; /* Bordure du bas */
   padding: 8px; /* Réduire le padding */

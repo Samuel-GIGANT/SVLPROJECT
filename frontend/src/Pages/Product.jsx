@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import './product.css';
 
+//gestion des produits sur le dashboard
 const Product = () => {
   const [products, setProducts] = useState([])
   const [newProduct, setNewProduct] = useState({
@@ -10,7 +11,8 @@ const Product = () => {
     marque: '',
     price: '',
     quantity: '',
-    category: ''
+    category: '',
+    imageURL: ''
   });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -83,7 +85,7 @@ const Product = () => {
       if (response.ok) {
         const newData = await response.json();
         setProducts([...products, newData]);
-        setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '' });
+        setNewProduct({ name: '', description: '', marque: '', price: '', quantity: '', category: '', imageURL: '' });
         setMessage('Produit ajouté avec succès.');
       } else {
         console.error('Erreur lors de la création du produit');
@@ -104,7 +106,8 @@ const Product = () => {
       marque: productToUpdate.marque,
       price: productToUpdate.price,
       quantity: productToUpdate.quantity,
-      category: productToUpdate.category || ''
+      category: productToUpdate.category || '',
+      imageURL: productToUpdate.imageURL
     });
     setMessage(null);
   };
@@ -147,43 +150,24 @@ const Product = () => {
     }
   };
 
-  // const handleDelete = async (productId) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3001/products/${productId}`, {
-  //       method: 'DELETE',
-  //     });
-
-  //     if (response.ok) {
-  //       const updatedProducts = products.filter(product => product._id !== productId);
-  //       setProducts(updatedProducts);
-  //       setMessage('Produit supprimé avec succès.');
-  //     } else {
-  //       const errorText = await response.text(); // Récupérer le texte brut de la réponse en cas d'erreur
-  //       console.error('Erreur lors de la suppression du produit:', errorText);
-  //       setMessage(`Erreur lors de la suppression du produit: ${errorText}`);
-  //     }
-  //   } catch (error) {
-  //     console.error('Erreur lors de la suppression du produit:', error);
-  //     setMessage(`Erreur lors de la suppression du produit: ${error.message}`);
-  //   }
-  // };
-
-
-  // Suppression d'un produit
+  // Suppression d'un produit avec confirmation
   const handleDelete = async (productId) => {
-    try {
-      const response = await fetch(`http://localhost:3001/products/${productId}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        const updatedProducts = products.filter(product => product._id !== productId);
-        setProducts(updatedProducts);
-        setMessage('Produit supprimé avec succès.');
-      } else {
-        console.error('Erreur lors de la suppression du produit');
+    const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`http://localhost:3001/products/${productId}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          const updatedProducts = products.filter(product => product._id !== productId);
+          setProducts(updatedProducts);
+          setMessage('Produit supprimé avec succès.');
+        } else {
+          console.error('Erreur lors de la suppression du produit');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la suppression du produit:', error);
       }
-    } catch (error) {
-      console.error('Erreur lors de la suppression du produit:', error);
     }
   };
 
@@ -195,8 +179,9 @@ const Product = () => {
   return (
     <div className="prod">
       <div className='prod-form'>
+        <h1>Vous êtes sur votre Dashbord</h1>
         <h2>{isEditing ? 'Modifier le produit' : 'Créer un nouveau produit'}</h2>
-        <form onSubmit={isEditing ? () => handleUpdate(selectedProductId) : handleSubmit}>
+        <form className="form_container" onSubmit={isEditing ? () => handleUpdate(selectedProductId) : handleSubmit}>
           <div>
             <label htmlFor="name">Nom :</label>
             <input
@@ -260,6 +245,15 @@ const Product = () => {
               ))}
             </select>
           </div>
+          <div>
+            <label htmlFor="imageURL">Image :</label>
+            <input
+              type="file"
+              id="imageURL"
+              name="imageURL"
+              onChange={handleInputChange}
+            />
+          </div>
           <button type="submit">{isEditing ? 'Modifier' : 'Ajouter'}</button>
           {isEditing && <button type="button" onClick={handleCancelEdit}>Annuler</button>}
           {message && <p>{message}</p>}
@@ -276,7 +270,10 @@ const Product = () => {
               <p><b>Marque :</b> {product.marque}</p>
               <p>Prix : {product.price}</p>
               <p>Quantité : {product.quantity}</p>
-              <p><b>Catégorie :</b> {product.category && product.category.name}</p>
+              <p><b>Catégorie :</b> {product.categoryName && product.categoryName}</p>
+              {product.imageURL && (
+                <img src={product.imageURL} alt={product.name} style={{ width: '100px', height: '100px' }} />
+              )}
               <div>
                 <button className="btn_delete" onClick={() => handleDelete(product._id)}>
                   <FaTrash /> Supprimer
@@ -293,6 +290,7 @@ const Product = () => {
       )}
     </div>
   );
+
 };
 
 export default Product;

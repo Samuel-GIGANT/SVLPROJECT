@@ -1,2 +1,24 @@
-/node_modules
 .DS_Store
+
+# Répertoires de dépendances et de construction
+node_modules/
+dist/
+build/
+
+# Fichiers de configuration de l'IDE
+.vscode/
+.idea/
+
+# Fichiers temporaires
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Système de fichiers
+.DS_Store
+
+# Exclure les fichiers de certificat et de clé
+cert.pem
+csr.pem
+key.pem

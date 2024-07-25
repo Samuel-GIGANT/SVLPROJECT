@@ -27,8 +27,6 @@ const ProductsDetails = () => {
           <li key={index}>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
-            <p>Prix: {product.price} €</p>
-            <p>category: {product.category} €</p>
           </li>
         ))}
       </ul>
