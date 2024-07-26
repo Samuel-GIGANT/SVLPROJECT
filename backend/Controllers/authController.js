@@ -32,6 +32,7 @@ const loginUser = async (req, res) => {
         console.log('login authcontroller')
         if (isPasswordCorrect) {
             // Mot de passe correct, connectez l'utilisateur
+            console.log('info user back', user)
             res.status(200).json({ user, message: "Connexion réussie" });
         } else {
             // Mot de passe incorrect

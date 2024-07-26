@@ -59,9 +59,6 @@ const Product = () => {
 
   return (
     <div>
-    <div className="light">
-        <h2>LIGHT</h2>
-      </div>
       {filteredProducts.length > 0 ? (
         filteredProducts.map((product, index) => {
           return (

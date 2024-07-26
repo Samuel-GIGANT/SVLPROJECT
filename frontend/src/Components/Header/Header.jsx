@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import { BiSolidUser } from "react-icons/bi";
@@ -19,7 +18,7 @@ const Header = () => {
   const [showLinks, setShowLinks] = useState(false);
   const navigate = useNavigate();
 
-  const isUserLogged = JSON.parse(localStorage.getItem("isUserLogged"));
+  const isUserLogged = JSON.parse(localStorage.getItem("isUserLogged")) && JSON.parse(localStorage.getItem("isUserLogged")) !== undefined;
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userConnected"));
     if (isUserLogged && userInfo) {

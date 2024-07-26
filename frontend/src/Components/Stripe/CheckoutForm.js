@@ -94,7 +94,7 @@ const CheckoutForm = ({ totalAmount, onPaymentSuccess, isUserLoggedIn }) => {
       </label>
 
       <PaymentElement />
-
+      
       <button type="submit" disabled={!stripe || isProcessing}>
         {isProcessing ? 'Traitement...' : 'Payer'}
       </button>

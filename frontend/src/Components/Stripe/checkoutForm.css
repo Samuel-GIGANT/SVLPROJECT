@@ -1,5 +1,6 @@
 .checkout-form {
   width: 100%;
+  height: auto;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -23,6 +24,7 @@
 
 .checkout-form .StripeElement {
   width: 100%;
+  height: auto;
   min-width: 400px;
   padding: 10px;
   border: 1px solid #ccc;

@@ -27,6 +27,7 @@ export async function registration(userData) {
 
 // Fonction de connexion
 export async function login(userData) {
+  console.log(userData);
   try {
     const response = await fetch(`${API_BASE_URL}/login`, {
       method: 'POST',
@@ -42,12 +43,14 @@ export async function login(userData) {
     }
 
     const data = await response.json();
+    console.log('Réponse reçue de l\'API:', data);
     return data;
   } catch (error) {
     console.error('Erreur lors de la connexion:', error);
     throw error;
   }
 }
+
 
 
 
@@ -144,4 +147,4 @@ export async function login(userData) {
 //   );
 // };
 
-// export { handleSubmit, AuthServices };
+// export { handleSubmit, AuthServices, registration };
