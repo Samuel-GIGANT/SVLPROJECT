@@ -7,8 +7,6 @@ const registerUser = async (req, res) => {
         // Créez un nouvel utilisateur en utilisant les données de la requête
         const newUser = new User(req.body);
         // Enregistrez le nouvel utilisateur dans la base de données MongoDB
-        console.log('register authcontroller')
-
         await newUser.save();
         // Répondez avec le nouvel utilisateur créé
         res.status(201).json(newUser);

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import { BiSolidUser } from "react-icons/bi";
@@ -20,7 +21,7 @@ const Header = () => {
 
   const isUserLogged = JSON.parse(localStorage.getItem("isUserLogged"));
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('userConnected'));
+    const userInfo = JSON.parse(localStorage.getItem("userConnected"));
     if (isUserLogged && userInfo) {
       setIsConnected(true);
       setUserNameConnected(userInfo.fullName);
@@ -99,3 +100,5 @@ const Header = () => {
 };
 
 export default Header;
+
+

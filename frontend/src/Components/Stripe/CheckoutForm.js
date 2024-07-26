@@ -1,33 +1,3 @@
-// // CheckoutForm.js
-// import React from 'react';
-// import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-
-//   const CheckoutForm = () => {
-//   const stripe = useStripe();
-//   const elements = useElements();
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     const { error, paymentMethod } = await stripe.createPaymentMethod({
-//       type: 'card',
-//       card: elements.getElement(CardElement),
-//     });
-//     if (error) {
-//       console.log("token généré", paymentMethod);
-//     }
-//     };
-//     return (
-//       <form onSubmit={handleSubmit} style={{ maxWidth: 400 }}>
-//         <CardElement
-//           options={{
-//             hidePostaCode: true
-//           }}
-//         />
-//         <button>Payer</button>
-//       </form>
-//     );
-//   };
-//   export default CheckoutForm;
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate
@@ -77,7 +47,7 @@ const CheckoutForm = ({ totalAmount, onPaymentSuccess, isUserLoggedIn }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         paymentMethodId: paymentMethod.id,
-        amount: totalAmount * 100, // Convertir en centimes
+        amount: (totalAmount - 1) * 100, // Convertir en centimes //FIXE:initiation de la valeur à 1 pour bypassé l'erreur stripe 'amount must be greater than 0.
       }),
     });
 
@@ -104,10 +74,7 @@ const CheckoutForm = ({ totalAmount, onPaymentSuccess, isUserLoggedIn }) => {
       // Show error to your customer (for example, payment details incomplete)
       console.log(result.error.message);
     } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
-      console.log('good')
+      // The payment has succeeded
     }
   };
 

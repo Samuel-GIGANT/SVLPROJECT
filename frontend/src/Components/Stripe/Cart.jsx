@@ -6,6 +6,7 @@ import { useCart } from './CartContext';
 
 const Cart = () => {
   const { cart, removeFromCart, changeQuantity, getTotalPrice, getNumberProduct, handleEmptyCart } = useCart();
+  const totalPriceForStripe = getTotalPrice() - 1; //FIXE:initiation de la valeur à 1 pour bypassé l'erreur stripe 'amount must be greater than 0.
 
   const navigate = useNavigate();
 
@@ -19,10 +20,6 @@ const Cart = () => {
 
     // Rediriger vers une page de confirmation
     navigate('/confirmation');
-
-    // Simuler l'envoi d'un e-mail de confirmation.
-
-    // Mettre à jour l'historique des commandes 
 
   };
 
@@ -57,7 +54,8 @@ const Cart = () => {
         ))}
       </ul>
       <hr />
-      <p className="cart-total">Total : {getTotalPrice()} €</p>
+      <p className="cart-total">Total : {totalPriceForStripe} €</p>
+      {/* <p className="cart-total">Total : {getTotalPrice()} €</p> */}
       <p className="cart-number-products">Nombre de produits : {getNumberProduct()}</p>
       <button className="empty-cart" onClick={handleEmptyCart}>Vider le panier</button>
       <Stripe totalAmount={getTotalPrice()} onPaymentSuccess={handlePaymentSuccess} />

@@ -37,7 +37,6 @@ function LoginPage() {
       setMessage('Veuillez remplir tous les champs.');
       return;
     }
-
     try {
       // Appeler la fonction de connexion avec les données du formulaire
       const data = await login(inputs);
@@ -46,6 +45,7 @@ function LoginPage() {
       // Stocker les informations de l'utilisateur dans le localStorage
       localStorage.setItem('userConnected', JSON.stringify(data.user));
       localStorage.setItem("isUserLogged", "true");
+      console.log(('userConnected'), localStorage.getItem('userConnected'));
 
       // Afficher un message de succès et rediriger l'utilisateur vers la page d'accueil
       setMessage('Connexion réussie');

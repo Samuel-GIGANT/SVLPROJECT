@@ -43,6 +43,7 @@ const Product = () => {
 
   // Fonction pour ajouter un produit au panier
   const handleAddToCart = (product) => {
+    console.log('mon produit : ', product)
     addToCart(product); // Ajout du produit au panier via le contexte
     alert("Le produit a été ajouté au panier !"); // Alerte pour informer l'utilisateur
   };
