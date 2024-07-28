@@ -40,11 +40,11 @@ function LoginPage() {
     try {
       // Appeler la fonction de connexion avec les données du formulaire
       const data = await login(inputs);
-      console.log('Response from backend:', data);
       // Stocker les informations de l'utilisateur dans le localStorage
+      console.log('data', data)
       localStorage.setItem('userConnected', JSON.stringify(data.user));
       localStorage.setItem("isUserLogged", "true");
-      console.log(data.user) 
+      console.log(data.user)
 
       // Afficher un message de succès et rediriger l'utilisateur vers la page d'accueil
       setMessage('Connexion réussie');
